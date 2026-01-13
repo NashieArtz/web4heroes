@@ -3,8 +3,6 @@
 use App\Controllers\{
     AuthController,
     HomeController,
-    ProductController,
-    CategoryController
 };
 use App\Core\Router;
 
