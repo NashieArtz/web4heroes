@@ -23,4 +23,3 @@ $router->setContainer($container);
 $request  = Request::fromGlobals();
 $response = $router->dispatch($request);
 $response->send();
-
