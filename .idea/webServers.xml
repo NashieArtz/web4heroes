@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="70a30f86-bfcf-4724-9f42-114b8c25a9a2" name="web4heroes" url="http://localhost">
+        <fileTransfer mountedRoot="C:\Users\leogr\devilbox\data\www\web4heroes\htdocs" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
