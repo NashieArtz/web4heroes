@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
 
-abstract class Controller
+abstract class  Controller
 {
     protected Request $request;
 

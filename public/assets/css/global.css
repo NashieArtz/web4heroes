@@ -1,0 +1,25 @@
+:root {
+    color-scheme: light dark;
+
+    --tag-danger: light-dark(#E5484D, #FF9592);
+    --tag-warning: light-dark(#FFC53D, #FFE7B3);
+    --tag-primary: light-dark(#7CE2FE,#C2F3FF);
+    --tag-success: light-dark(#BDEE63, #E3F7BA);
+    --tag-default: light-dark(#606060, #EEEEEE);
+
+    --ink: #010101;
+    --ink-inverse: #f1f1f1;
+
+
+
+
+}
+
+
+main {
+    margin: 0 5%;
+    font-family: "Winky Sans", serif;
+
+}
+
+

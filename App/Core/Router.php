@@ -3,10 +3,7 @@ namespace App\Core;
 
 class Router
 {
-    private array $routes = [
-        'GET' => [],
-        'POST' => []
-    ];
+    private array $routes = ['GET' => [], 'POST' => []];
 
     private ?Container $container = null;
 
