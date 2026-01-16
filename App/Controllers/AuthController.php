@@ -19,4 +19,14 @@ class AuthController extends Controller
     public function register(): void
     {
     }
+
+    public function showForgotPassword(): Response
+    {
+        return $this->view('forgotten-pwd');
+    }
+
+    public function resetPassword(): void
+    {
+
+    }
 }

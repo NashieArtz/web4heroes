@@ -15,5 +15,7 @@ return function (Router $router) {
 
     $router->get('/register', [AuthController::class, 'showRegister']);
     $router->post('/register', [AuthController::class, 'register']);
-// ...
+    $router->get('/forgotten-pwd', [AuthController::class, 'showForgotPassword']);
+    $router->post('/forgot-password', [AuthController::class, 'forgotPassword']);
+
 };
