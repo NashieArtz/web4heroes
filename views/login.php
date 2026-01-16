@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="text-center mb-4">
-                    <a href="#" class="text-white-50 text-decoration-none small">
+                    <a href="forgotten-pwd" class="text-white-50 text-decoration-none small">
                         Mot de passe oublié ?
                     </a>
                 </div>
