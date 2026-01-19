@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-class PlaceholderRepository
+class NewsletterRepository
 {
 
 }

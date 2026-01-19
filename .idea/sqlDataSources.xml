@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="ac9f4e13-4430-42bf-a804-d55ed8f3d110" name="Web4Heroes@localhost Mapping">
+      <data-sources db="b616d62b-735e-44d9-ac19-0ecf42b2295a" ddl="d3dddbbb-c8c7-4236-8124-4daddb186046" />
+      <scope>
+        <node kind="schema" qname="web4heroes" />
+      </scope>
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="d3dddbbb-c8c7-4236-8124-4daddb186046" />
+          <option name="name" value="Web4Heroes@localhost (DDL)" />
+          <option name="dbmsName" value="MARIADB" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$/config/database.sql" />
+            </array>
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>
