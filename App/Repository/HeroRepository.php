@@ -61,22 +61,12 @@ final class HeroRepository
      */
     public function findHeroBySpeciality(string $speciality): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT `name` FROM `speciality` WHERE `name` = :speciality');
+        $stmt = $this->pdo->prepare('SELECT `alias` FROM `hero_profile`
+               INNER JOIN `hero_profile_has_speciality` ON hero_profile.id = hero_profile_has_speciality.hero_profile_id
+               INNER JOIN `speciality` ON hero_profile_has_speciality.speciality_id = speciality.id
+               WHERE speciality.name = :speciality');
         $stmt->execute([':speciality' => $speciality]);
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $speciality_db) {
-            if ($speciality_db === $speciality) {
-                $stmt = $this->pdo->prepare('SELECT `speciality_id` FROM `hero_profile_has_speciality`
-                       WHERE `speciality_id` = :speciality_id');
-                $stmt->execute([':speciality_id' => $speciality_db]);
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            }
-            else {
-                //TODO: Try/Catch
-                echo 'ERR: Doesn\'t exist';
-            }
-        }
-        //TODO: Check for return value
-        return ?: null;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -84,9 +74,11 @@ final class HeroRepository
      * @param bool $isActive
      * @return void
      */
-    public function toggleStatus(int $heroID, bool $isActive)
+    public function toggleStatus(int $heroID, int $isActive)
     {
-
+        $stmt = $this->pdo->prepare('SELECT `is_active` FROM `hero_profile` WHERE `id` = :heroID');
+        $stmt->execute([':is_active' => $isActive,
+            ':heroID' => $heroID]);
     }
 
     /**
@@ -96,7 +88,15 @@ final class HeroRepository
      */
     public function addSpeciality(int $heroID, string $speciality)
     {
-
+        $specialityTrim = htmlspecialchars(trim($speciality), ENT_QUOTES);
+        $stmt = $this->pdo->prepare('SELECT speciality.name FROM speciality WHERE NOT EXISTS (name = :speciality)');
+        // trim.lowercase($speciality);
+        // If speciality.name === speciality then
+            // INSERT INTO hero_profile_has_speciality VALUES hero_profile_id, speciality_id
+        // ELSE
+            // INSERT INTO speciality VALUES speciality.name
+            // GET speciality.id FROM speciality.name
+            // INSERT INTO hero_profile_has_speciality VALUES hero_profile_id, speciality_id
     }
 
     /**
@@ -124,6 +124,7 @@ final class HeroRepository
      */
     public function createHero(array $data)
     {
+
 
     }
 
