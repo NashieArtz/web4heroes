@@ -18,6 +18,9 @@
           <option name="urls">
             <array>
               <option value="file://$PROJECT_DIR$/config/database.sql" />
+              <option value="file://$PROJECT_DIR$/config/web4heroes/web4heroes.sql" />
+              <option value="file://$PROJECT_DIR$/config/web4heroes/address.sql" />
+              <option value="file://$PROJECT_DIR$/config/web4heroes/users.sql" />
             </array>
           </option>
           <option name="outLayout" value="File per object by schema.groovy" />
