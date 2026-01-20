@@ -28,4 +28,8 @@ return function (Router $router) {
     $router->get('/movie-list', [AuthController::class, 'showMovieList']);
     $router->get('/hero-list', [AuthController::class, 'showHeroList']);
 
+    $router->get('/user-management', [AuthController::class, 'showUserManagement']);
+    $router->get('/vilain-list', [AuthController::class, 'showVilainList']);
+    $router->get('/Admin-dashboard', [AuthController::class, 'showAdminDashboard']);
+
 };

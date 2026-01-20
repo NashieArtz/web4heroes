@@ -23,7 +23,6 @@
             </div>
         </form>
         <div class="row g-4">
-
             <?php foreach ($movies as $movie): ?>
                 <div class="col-6 col-md-4 col-lg-3">
                     <div class="card h-100 shadow-sm">

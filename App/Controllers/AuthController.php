@@ -66,4 +66,16 @@ class AuthController extends Controller
         return $this->view('hero-list');
     }
 
+    public function showUserManagement(): Response
+    {
+        return $this->view('user-management');
+    }
+    public function showVilainList(): Response
+    {
+        return $this->view('vilain-list');
+    }
+    public function showAdminDashboard(): Response
+    {
+        return $this->view('Admin-dashboard');
+    }
 }

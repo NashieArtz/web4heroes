@@ -98,3 +98,5 @@ document.addEventListener('DOMContentLoaded', function() {
         form.submit(); // Envoie réellement le formulaire
     });
 });
+
+
