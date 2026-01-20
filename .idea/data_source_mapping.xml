@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/App/Repository/AddressRepository.php" value="b616d62b-735e-44d9-ac19-0ecf42b2295a" />
+    <file url="file://$PROJECT_DIR$/App/Repository/HeroRepository.php" value="b616d62b-735e-44d9-ac19-0ecf42b2295a" />
+    <file url="file://$PROJECT_DIR$/App/Repository/UserRepository.php" value="b616d62b-735e-44d9-ac19-0ecf42b2295a" />
+  </component>
+</project>
