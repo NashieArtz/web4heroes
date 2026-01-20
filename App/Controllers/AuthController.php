@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 
 namespace App\Controllers;
 
@@ -31,4 +29,41 @@ class AuthController extends Controller
     {
 
     }
+
+    public function showResetPassword(): Response
+    {
+        return $this->view('new-pwd');
+    }
+
+    public function showError(): Response
+    {
+        return $this->view('error');
+    }
+
+
+    public function showHome(): Response
+    {
+        return $this->view('home');
+    }
+    public function showIncidentList(): Response
+    {
+        return $this->view('incident-list');
+    }
+    public function showIncidentAdd(): Response
+    {
+        return $this->view('incident-declaration');
+    }
+    public function showIncidentDetail(): Response
+    {
+        return $this->view('incident-detail');
+    }
+    public function showMovieList(): Response
+    {
+        return $this->view('movie-list');
+    }
+    public function showHeroList(): Response
+    {
+        return $this->view('hero-list');
+    }
+
 }

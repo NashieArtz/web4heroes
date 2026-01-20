@@ -8,13 +8,14 @@
     <p style="color: green;">Un lien a été envoyé par email pour réinitialiser votre mot de passe.</p>
 <?php endif; ?>
 
-<form action="forgotten-pwd" method="POST">
+<form action="forgotten-pwd" method="POST" id="forgo_form">
     <div>
         <label for="email">Email :</label>
         <input type="email" name="email" id="email" required>
     </div>
 
-    <button type="submit">Envoyer le lien</button>
+
+    <button type="submit" id="submit_forgot">Envoyer le lien</button>
 </form>
 
 <p>
