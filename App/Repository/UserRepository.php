@@ -11,10 +11,9 @@ final class UserRepository
     private PDO $pdo;
     private AddressRepository $addressRepository;
 
-    public function __construct(PDO $pdo, AddressRepository $addressRepository)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
-        $this->addressRepository = $addressRepository;
     }
 
     /**
@@ -109,15 +108,14 @@ final class UserRepository
     public function createUser(array $data): void
     {
         $stmt = $this->pdo->prepare('INSERT INTO `users` (`username`, `email`, `pwd`, `lastname`, `firstname`,
-        `gender`, `birthdate`, `phone`)
-        VALUES (:username, :email, :pwd, :lastname, :firstname, :gender, :birthdate, :phone)');
+        `birthdate`, `phone`)
+        VALUES (:username, :email, :pwd, :lastname, :firstname, :birthdate, :phone)');
         $stmt->execute([
             ':username' => $data['username'],
             ':email' => $data['email'],
             ':pwd' => $data['pwd'],
             ':lastname' => $data['lastname'],
             ':firstname' => $data['firstname'],
-            ':gender' => $data['gender'],
             ':birthdate' => $data['birthdate'],
             ':phone' => $data['phone'],
         ]);
