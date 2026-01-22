@@ -1,9 +1,6 @@
 <?php
 
-use App\Controllers\{
-    AuthController,
-    HomeController,
-};
+use App\Controllers\{AdminController, AuthController, ExceptionsController, HomeController, IncidentController};
 use App\Core\Router;
 
 return function (Router $router) {
@@ -15,21 +12,28 @@ return function (Router $router) {
 
     $router->get('/register', [AuthController::class, 'showRegister']);
     $router->post('/register', [AuthController::class, 'register']);
+
     $router->get('/forgotten-pwd', [AuthController::class, 'showForgotPassword']);
     $router->post('/forgot-password', [AuthController::class, 'forgotPassword']);
 
     $router->get('/reset-password/{token}', [AuthController::class, 'showResetPassword']);
     $router->post('/reset-password', [AuthController::class, 'resetPassword']);
-    $router->get('/error', [AuthController::class, 'showError']);
+
+
+
     $router->get('/home', [AuthController::class, 'showHome']);
-    $router->get('/incident-list', [AuthController::class, 'showIncidentList']);
-    $router->get('/incident-declaration', [AuthController::class, 'showIncidentAdd']);
-    $router->get('/incident-detail', [AuthController::class, 'showIncidentDetail']);
+    $router->get('/incident-list', [IncidentController::class, 'showIncidentList']);
+    $router->get('/incident-declaration', [IncidentController::class, 'showIncidentAdd']);
+    $router->get('/incident-detail', [IncidentController::class, 'showIncidentDetail']);
+
+
     $router->get('/movie-list', [AuthController::class, 'showMovieList']);
     $router->get('/hero-list', [AuthController::class, 'showHeroList']);
+    $router->get('/villain-list', [AuthController::class, 'showVilainList']);
 
-    $router->get('/user-management', [AuthController::class, 'showUserManagement']);
-    $router->get('/vilain-list', [AuthController::class, 'showVilainList']);
-    $router->get('/Admin-dashboard', [AuthController::class, 'showAdminDashboard']);
+    $router->get('/user-management', [AdminController::class, 'showUserManagement']);
+    $router->get('/admin-dashboard', [AdminController::class, 'showAdminDashboard']);
+
+    $router->get('/error', [ExceptionsController::class, 'showError']);
 
 };

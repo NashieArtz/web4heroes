@@ -27,7 +27,7 @@
                             </div>
                         <?php endif; ?>
 
-                        <form action="register" method="POST">
+                        <form action="/App/Controllers/AuthController" method="POST">
                             <h4 class="mb-3">Informations personnelles</h4>
 
                            <!-- <div class="row mb-3">

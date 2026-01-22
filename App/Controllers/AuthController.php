@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controllers;
 use App\Core\Controller;
 use App\Core\Request;
 use App\Core\Response;
-use App\Repository\AddressRepository;
 use App\Repository\UserRepository;
 
 class AuthController extends Controller
@@ -23,33 +23,40 @@ class AuthController extends Controller
     {
         return $this->view('login');
     }
-
     public function showRegister(): Response
     {
         return $this->view('register');
     }
+    public function showForgotPassword(): Response
+    {
+        return $this->view('forgotten-pwd');
+    }
+    public function showResetPassword(): Response
+    {
+        return $this->view('new-pwd');
+    }
+
+
     public function register(): Response
     {
         if ($this->request->method() === 'POST' && empty($errors)) {
 
+            $data = $this->request->input();
             $data = [
-                //'gender'     => trim($_POST['gender'] ?? ''),
-                'lastname'   => trim($_POST['lastname'] ?? ''),
-                'firstname'  => trim($_POST['firstname'] ?? ''),
-                'birthdate'  => $_POST['birthdate'] ?? '',
-                'phone'      => trim($_POST['phone'] ?? ''),
-                'username'   => trim($_POST['username'] ?? ''),
-                'email'      => trim($_POST['email'] ?? ''),
-                'pwd'        => $_POST['pwd'] ?? '',
-                'pwd_confirm'=> $_POST['pwd_confirm'] ?? '',
+                'username' => htmlspecialchars(trim($data['username'])),
+                'pwd' => password_hash($data['pwd'], PASSWORD_DEFAULT),
+                'email' => htmlspecialchars(trim($data['email'])),
+                'firstname' => htmlspecialchars(trim($data['firstname'])),
+                'lastname' => htmlspecialchars(trim($data['lastname'])),
+                'phone' => htmlspecialchars(trim($data['phone'])),
             ];
             $success = true;
             //validation
 
+            //<editor-fold desc="Javascript">
             //if ($data['gender'] === '') {
-//                $errors[] = 'La civilité est obligatoire.';
-  //          }
-
+            //$errors[] = 'La civilité est obligatoire.';
+            //          }
             if ($data['lastname'] === '' || $data['firstname'] === '') {
                 $errors[] = 'Le nom et le prénom sont obligatoires.';
             }
@@ -76,66 +83,14 @@ class AuthController extends Controller
             if ($data['pwd'] !== $data['pwd_confirm']) {
                 $errors[] = 'Les mots de passe ne correspondent pas.';
             }
-
+            //</editor-fold>
         }
-
-       $this->userRepository->createUser($data);
+        $this->userRepository->createUser($data);
         return $this->response->redirect('/');
+    }
 
-    }
-    public function showForgotPassword(): Response
-    {
-        return $this->view('forgotten-pwd');
-    }
 
     public function resetPassword(): void
     {
-    }
-
-    public function showResetPassword(): Response
-    {
-        return $this->view('new-pwd');
-    }
-
-    public function showError(): Response
-    {
-        return $this->view('error');
-    }
-    public function showHome(): Response
-    {
-        return $this->view('home');
-    }
-    public function showIncidentList(): Response
-    {
-        return $this->view('incident-list');
-    }
-    public function showIncidentAdd(): Response
-    {
-        return $this->view('incident-declaration');
-    }
-    public function showIncidentDetail(): Response
-    {
-        return $this->view('incident-detail');
-    }
-    public function showMovieList(): Response
-    {
-        return $this->view('movie-list');
-    }
-    public function showHeroList(): Response
-    {
-        return $this->view('hero-list');
-    }
-
-    public function showUserManagement(): Response
-    {
-        return $this->view('user-management');
-    }
-    public function showVilainList(): Response
-    {
-        return $this->view('vilain-list');
-    }
-    public function showAdminDashboard(): Response
-    {
-        return $this->view('Admin-dashboard');
     }
 }
