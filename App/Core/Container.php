@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace App\Core;
 
-use App\Controllers\AuthController;
-use App\Controllers\RegisterController;
-use App\Repository\UserRepository;
 use PDO;
 
 final class Container
@@ -19,9 +16,16 @@ final class Container
     public function make(string $class, Request $request): object
     {
         return match ($class) {
-            RegisterController::class => new RegisterController(
+            ProductController::class => new ProductController(
                 $request,
-                new UserRepository($this->pdo)
+                new ProductsRepository($this->pdo),
+                new CategoryRepository($this->pdo)
+            ),
+
+            CategoryController::class => new CategoryController(
+                $request,
+                new ProductsRepository($this->pdo),
+                new CategoryRepository($this->pdo)
             ),
 
             default => new $class($request),

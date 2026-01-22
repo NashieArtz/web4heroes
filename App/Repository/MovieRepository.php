@@ -13,11 +13,5 @@ final class MovieRepository
         $this->pdo = $pdo;
     }
 
-    /**
-     * findAll()
-     * findByYear()
-     * findByHero()
-     */
-
 
 }

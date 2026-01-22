@@ -78,9 +78,4 @@ final class VillainRepository
     {
     }
 
-    /**
-     * findByName()
-     * getThreatLevel()
-     **/
-
 }
