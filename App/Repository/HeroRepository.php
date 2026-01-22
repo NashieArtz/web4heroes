@@ -112,9 +112,25 @@ final class HeroRepository
      * @param string $speciality
      * @return void
      */
-    public function removeSpeciality(int $heroID, string $speciality)
+    public function removeSpeciality(int $heroID, string $speciality): bool
     {
+        $stmt = $this->pdo->prepare('SELECT id FROM speciality WHERE name = :name');
+        $stmt->execute(['name' => $speciality]);
+        $specialityID = $stmt->fetchColumn();
 
+        if (!$specialityID) {
+            return false;
+        }
+
+        $stmt = $this->pdo->prepare('
+        DELETE FROM hero_profile_has_speciality
+        WHERE hero_profile_id = :heroID
+        AND speciality_id = :specID
+    ');
+        return $stmt->execute([
+            'heroID' => $heroID,
+            'specID' => $specialityID
+        ]);
 
     }
 
@@ -167,6 +183,5 @@ final class HeroRepository
     public function deleteHero(int $heroID): void
     {
         $stmt = $this->pdo->prepare('DELETE FROM `hero_profile` WHERE `id` = :heroID');
-
     }
 }

@@ -75,6 +75,8 @@ final class UserRepository
         $stmt->execute(['email' => $email]);
         return (int)$stmt->fetchColumn() > 0;
     }
+
+// TODO: saveresettoken(), finduserbytoken()
 //
 //    /**
 //     * @param int $id
@@ -92,7 +94,7 @@ final class UserRepository
 //    public function findUserByToken(string $token) {
 //
 //    }
-//
+
     /**
      * @param array $data
      * @return void
