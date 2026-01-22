@@ -1,11 +1,14 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Repository;
+
 use PDO;
 
 final class HeroRepository
 {
     private PDO $pdo;
+    private bool $isTrue = false;
 
     public function __construct(PDO $pdo)
     {
@@ -85,18 +88,23 @@ final class HeroRepository
      * @param int $heroID
      * @param string $speciality
      * @return void
+     *
+     * //TODO: Check when addSpeciality() twice in a row
      */
-    public function addSpeciality(int $heroID, string $speciality)
+    public function addSpeciality(int $heroID, string $speciality): void
     {
-        $specialityTrim = htmlspecialchars(trim($speciality), ENT_QUOTES);
-        $stmt = $this->pdo->prepare('SELECT speciality.name FROM speciality WHERE NOT EXISTS (name = :speciality)');
-        // trim.lowercase($speciality);
-        // If speciality.name === speciality then
-            // INSERT INTO hero_profile_has_speciality VALUES hero_profile_id, speciality_id
-        // ELSE
-            // INSERT INTO speciality VALUES speciality.name
-            // GET speciality.id FROM speciality.name
-            // INSERT INTO hero_profile_has_speciality VALUES hero_profile_id, speciality_id
+        $stmt = $this->pdo->prepare('SELECT name FROM speciality WHERE name = :speciality');
+        $stmt->execute([':speciality' => $speciality]);
+        if ($stmt->rowCount() === 0) {
+            $stmt = $this->pdo->prepare('INSERT INTO speciality (name) VALUES (:speciality)');
+            $stmt->execute([':speciality' => $speciality]);
+            $lastID = $this->pdo->lastInsertId();
+        }
+        $stmt = $this->pdo->prepare('INSERT INTO hero_profile_has_speciality (hero_profile_id, speciality_id)
+    (SELECT * FROM
+             $heroID AS `heroID`,
+             $lastID AS `lastID`)'); //TODO: lastInsertID 0 if not created, check here
+        $stmt->execute([':heroID' => $heroID, ':speciality' => $lastID]);
     }
 
     /**
@@ -104,8 +112,25 @@ final class HeroRepository
      * @param string $speciality
      * @return void
      */
-    public function removeSpeciality(int $heroID, string $speciality)
+    public function removeSpeciality(int $heroID, string $speciality): bool
     {
+        $stmt = $this->pdo->prepare('SELECT id FROM speciality WHERE name = :name');
+        $stmt->execute(['name' => $speciality]);
+        $specialityID = $stmt->fetchColumn();
+
+        if (!$specialityID) {
+            return false;
+        }
+
+        $stmt = $this->pdo->prepare('
+        DELETE FROM hero_profile_has_speciality
+        WHERE hero_profile_id = :heroID
+        AND speciality_id = :specID
+    ');
+        return $stmt->execute([
+            'heroID' => $heroID,
+            'specID' => $specialityID
+        ]);
 
     }
 
@@ -113,19 +138,28 @@ final class HeroRepository
      * @param int $heroID
      * @return void
      */
-    public function getSpecialities(int $heroID)
+    public function getSpecialities(int $heroID): array
     {
+        $stmt = $this->pdo->prepare('SELECT name FROM speciality
+    INNER JOIN hero_profile_has_speciality
+    ON speciality.id = hero_profile_has_speciality.speciality_id
+    WHERE hero_profile_id = :heroID');
 
+        $stmt->execute(['heroID' => $heroID]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     /**
      * @param array $data
      * @return void
      */
-    public function createHero(array $data)
+    public function createHero(array $data): void
     {
-
-
+        $stmt = $this->pdo->prepare('INSERT INTO `hero_profile` (alias, users_id) VALUES (:alias, :users_id)');
+        $stmt->execute([
+            ':alias' => $data['alias'],
+            ':users_id' => $data['users_id']]);
     }
 
     /**
@@ -133,19 +167,22 @@ final class HeroRepository
      * @param array $data
      * @return void
      */
-    public function updateHero(int $heroID, array $data)
+    public function updateHero(int $heroID, array $data): void
     {
-
+        $stmt = $this->pdo->prepare('UPDATE hero_profile SET description = :description,
+                        photo_path = :photo_path WHERE id = :heroID');
+        $stmt->execute([
+            ':description' => $data['description'],
+            ':photo_path' => $data['photo_path'],
+            'heroID' => $heroID]);
     }
 
     /**
      * @param int $heroID
      * @return void
      */
-    public function deleteHero(int $heroID)
+    public function deleteHero(int $heroID): void
     {
-
+        $stmt = $this->pdo->prepare('DELETE FROM `hero_profile` WHERE `id` = :heroID');
     }
-
-
 }

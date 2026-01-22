@@ -3,6 +3,7 @@
 use App\Controllers\{
     AuthController,
     HomeController,
+    DashboardController,
 };
 use App\Core\Router;
 
@@ -13,11 +14,34 @@ return function (Router $router) {
     $router->post('/login', [AuthController::class, 'login']);
     $router->post('/logout', [AuthController::class, 'logout']);
 
-    $router->get('/incident-list', [IncidentController::class, 'showIncidents']);
-
     $router->get('/register', [AuthController::class, 'showRegister']);
     $router->post('/register', [AuthController::class, 'register']);
+
     $router->get('/forgotten-pwd', [AuthController::class, 'showForgotPassword']);
     $router->post('/forgot-password', [AuthController::class, 'forgotPassword']);
+
+    $router->get('/reset-password/{token}', [AuthController::class, 'showResetPassword']);
+    $router->post('/reset-password', [AuthController::class, 'resetPassword']);
+
+
+
+    $router->get('/home', [AuthController::class, 'showHome']);
+    $router->get('/incident-list', [IncidentController::class, 'showIncidentList']);
+    $router->get('/incident-declaration', [IncidentController::class, 'showIncidentAdd']);
+    $router->get('/incident-detail', [IncidentController::class, 'showIncidentDetail']);
+
+
+    $router->get('/movie-list', [AuthController::class, 'showMovieList']);
+    $router->get('/hero-list', [AuthController::class, 'showHeroList']);
+    $router->get('/villain-list', [AuthController::class, 'showVilainList']);
+
+    $router->get('/user-management', [AuthController::class, 'showUserManagement']);
+    $router->get('/villain-list', [AuthController::class, 'showVilainList']);
+
+    $router->get('/user-dashboard', [AuthController::class, 'showUserDashboard']);
+    $router->get('/admin-dashboard', [AuthController::class, 'showAdminDashboard']);
+    $router->get('/hero-dashboard', [DashboardController::class, 'heroDashboard']);
+
+    $router->get('/index-dashboard', [DashboardController::class, 'dashboardRole']);
 
 };
