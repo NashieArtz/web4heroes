@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <?php if (!empty($errors)): ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Erreur(s) d'inscription :</strong>
+                                <strong>Erreur(s)d'inscription :</strong>
                                 <ul class="mb-0 mt-2">
                                     <?php foreach ($errors as $error): ?>
                                         <li><?= htmlspecialchars($error) ?></li>
@@ -100,10 +100,6 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" name="username" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
                                     <label class="form-label">E-mail <span class="text-danger">*</span></label>
                                     <input type="email" name="email" class="form-control" required>
                                 </div>
@@ -120,6 +116,22 @@
                                     <input type="password" name="pwd_confirm" class="form-control" required>
                                 </div>
                             </div>
+                            <div class="form-check mb-4">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="is_hero_request"
+                                       id="isHeroRequest"
+                                       value="1">
+
+                                <label class="form-check-label fw-bold" for="isHeroRequest">
+                                    Je suis un héros et je souhaite être validé par les modérateurs
+                                </label>
+
+                                <div class="form-text">
+                                    Votre profil héros sera examiné avant activation.
+                                </div>
+                            </div>
+
 
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-lg">

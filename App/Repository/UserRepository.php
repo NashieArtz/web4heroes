@@ -66,6 +66,34 @@ final class UserRepository
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
+
+    public function findByUsernameOrEmail(string $identifier): ?array
+    {
+        $sql = "
+        SELECT *
+        FROM users
+        WHERE username = :username OR email = :email
+        LIMIT 1
+    ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $identifier,
+            'email' => $identifier
+        ]);
+
+        return $stmt->fetch() ?: null;
+    }
+    public function findRoleById(int $userId): ?string
+    {
+        $sql = "SELECT role FROM users WHERE id = :id LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $userId]);
+
+        $result = $stmt->fetch();
+        return $result['role'] ?? null;
+    }
+
+
     public function isHero(string $email): bool {
         $sql = "SELECT COUNT(*)
             FROM users u

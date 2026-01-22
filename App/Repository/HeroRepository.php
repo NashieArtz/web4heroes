@@ -149,6 +149,7 @@ final class HeroRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     /**
      * @param array $data
      * @return void

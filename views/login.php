@@ -1,3 +1,10 @@
+<?php if (!empty($errors)) : ?>
+    <div style="color:red;">
+        <?php foreach ($errors as $error) : ?>
+            <p><?= htmlspecialchars($error) ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 <section class="vh-100 d-flex align-items-center">
     <div class="container">
         <div class="row justify-content-center">
@@ -52,4 +59,7 @@
 
                     </div>
                 </div>
-            </div> </div> </div> </section>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,6 +1,10 @@
 <?php
 
-use App\Controllers\{AdminController, AuthController, ExceptionsController, HomeController, IncidentController};
+use App\Controllers\{
+    AuthController,
+    HomeController,
+    DashboardController,
+};
 use App\Core\Router;
 
 return function (Router $router) {
@@ -31,9 +35,13 @@ return function (Router $router) {
     $router->get('/hero-list', [AuthController::class, 'showHeroList']);
     $router->get('/villain-list', [AuthController::class, 'showVilainList']);
 
-    $router->get('/user-management', [AdminController::class, 'showUserManagement']);
-    $router->get('/admin-dashboard', [AdminController::class, 'showAdminDashboard']);
+    $router->get('/user-management', [AuthController::class, 'showUserManagement']);
+    $router->get('/villain-list', [AuthController::class, 'showVilainList']);
 
-    $router->get('/error', [ExceptionsController::class, 'showError']);
+    $router->get('/user-dashboard', [AuthController::class, 'showUserDashboard']);
+    $router->get('/admin-dashboard', [AuthController::class, 'showAdminDashboard']);
+    $router->get('/hero-dashboard', [DashboardController::class, 'heroDashboard']);
+
+    $router->get('/index-dashboard', [DashboardController::class, 'dashboardRole']);
 
 };
