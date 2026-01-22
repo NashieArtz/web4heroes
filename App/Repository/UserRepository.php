@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use PDO;
+use PDOException;
 
 final class UserRepository
 {
     private PDO $pdo;
     private AddressRepository $addressRepository;
+    private int $isUpdated = 0;
 
     public function __construct(PDO $pdo, AddressRepository $addressRepository)
     {
@@ -54,35 +56,24 @@ final class UserRepository
     {
         $stmt = $this->pdo->prepare(' SELECT * FROM `users` WHERE username = :username');
         $stmt->execute([':username' => $username]);
-
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    /**
-     * @param string $email
-     * @return string|null
-     */
-    public function findPasswordByEmail(string $email): ?string
-    {
-        $stmt = $this->pdo->prepare("
-                SELECT pwd
-                FROM users
-                WHERE email = :email
-            ");
+
+    public function findByEmail(string $email): ?array {
+        $stmt = $this->pdo->prepare(' SELECT * FROM `users` WHERE email = :email');
         $stmt->execute([':email' => $email]);
-        $pwd = $stmt->fetchColumn();
-        return $pwd ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    /**
-     * @param string $email
-     * @return bool
-     */
-    public function emailExists(string $email): bool
-    {
-        $stmt = $this->pdo->prepare('SELECT EXISTS( SELECT 1 FROM users WHERE email = :email');
-        $stmt->execute([':email' => $email]);
-        return (bool)$stmt->fetchColumn();
+    public function isHero(string $email): bool {
+        $sql = "SELECT COUNT(*)
+            FROM users u
+            INNER JOIN hero_profile hp ON u.id = hp.users_id
+            WHERE u.email = :email";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        return (int)$stmt->fetchColumn() > 0;
     }
 //
 //    /**
@@ -105,19 +96,20 @@ final class UserRepository
     /**
      * @param array $data
      * @return void
+     *
+     * //TODO: Enum gender
      */
     public function createUser(array $data): void
     {
         $stmt = $this->pdo->prepare('INSERT INTO `users` (`username`, `email`, `pwd`, `lastname`, `firstname`,
-        `gender`, `birthdate`, `phone`)
-        VALUES (:username, :email, :pwd, :lastname, :firstname, :gender, :birthdate, :phone)');
+        `birthdate`, `phone`)
+        VALUES (:username, :email, :pwd, :lastname, :firstname, :birthdate, :phone)');
         $stmt->execute([
             ':username' => $data['username'],
             ':email' => $data['email'],
             ':pwd' => $data['pwd'],
             ':lastname' => $data['lastname'],
             ':firstname' => $data['firstname'],
-            ':gender' => $data['gender'],
             ':birthdate' => $data['birthdate'],
             ':phone' => $data['phone'],
         ]);
@@ -130,21 +122,26 @@ final class UserRepository
      */
     public function updateUser(int $userID, array $data): int
     {
-        $stmt = $this->pdo->prepare('UPDATE `users` SET `username` = :username, `email` = :email, `pwd` = :pwd,
+        try {
+            $stmt = $this->pdo->prepare('UPDATE `users` SET `username` = :username, `email` = :email, `pwd` = :pwd,
                    `lastname` = :lastname, `firstname` = :firstname, `gender` = :gender, `birthdate` = :birthdate,
                    `phone` = :phone WHERE id = :id');
-        $stmt->execute([
-            ':username' => $data['username'],
-            ':email' => $data['email'],
-            ':pwd' => $data['pwd'],
-            ':lastname' => $data['lastname'],
-            ':firstname' => $data['firstname'],
-            ':gender' => $data['gender'],
-            ':birthdate' => $data['birthdate'],
-            ':phone' => $data['phone'],
-            ':id' => $userID,
-        ]);
-        return 1;
+            $stmt->execute([
+                ':username' => $data['username'],
+                ':email' => $data['email'],
+                ':pwd' => $data['pwd'],
+                ':lastname' => $data['lastname'],
+                ':firstname' => $data['firstname'],
+                ':gender' => $data['gender'],
+                ':birthdate' => $data['birthdate'],
+                ':phone' => $data['phone'],
+                ':id' => $userID,
+            ]);
+            return $isUpdated = 1;
+        } catch (PDOException $e) {
+            return $isUpdated;
+        }
+
     }
 
     /**
@@ -157,11 +154,9 @@ final class UserRepository
         $this->pdo->beginTransaction();
 
         try {
-            $checkAll = $this->pdo->prepare("
-                    SELECT
-                        EXISTS (SELECT 1 FROM hero_profile WHERE users_id = :id)
+            $checkAll = $this->pdo->prepare("SELECT (EXISTS (SELECT 1 FROM hero_profile WHERE users_id = :id)
                             OR EXISTS (SELECT 1 FROM incident WHERE users_id = :id)
-                            OR EXISTS (SELECT 1 FROM newsletter_subscribers WHERE users_id = :id)
+                            OR EXISTS (SELECT 1 FROM newsletter_subscribers WHERE users_id = :id))
 
                 ");
             $checkAll->execute([':id' => $userID]);
@@ -176,7 +171,7 @@ final class UserRepository
                     'lastname' => null,
                     'phone' => null,
                     'pwd' => null,
-                    'email' => null,
+                    'email' => 'deleted@web4heroes.com',
                     'birthdate' => null,
                 ];
                 $result = $this->updateUser($userID, $data);
@@ -195,4 +190,6 @@ final class UserRepository
             throw $e;
         }
     }
+
+
 }
