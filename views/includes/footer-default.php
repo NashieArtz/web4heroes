@@ -1,7 +1,6 @@
-<footer class="bg-dark text-light pt-5">
-    <div class="container">
-        <div class="row gy-4">
-
+<footer class="text-light pt-5">
+    <div class=" footer-top">
+        <div class="gy-4 row mx-4">
             <div class="col-12 col-md-3">
                 <h5>Mention légale</h5>
                 <ul class="list-unstyled">
@@ -29,22 +28,15 @@
 
             <div class="col-12 col-md-3">
                 <h5>Suivez-nous</h5>
-                <a href="#" class="text-light me-3 fs-5">
-                    <i class="bi bi-twitter"></i>
-                </a>
-                <a href="#" class="text-light me-3 fs-5">
-                    <i class="bi bi-instagram"></i>
-                </a>
-                <a href="#" class="text-light fs-5">
-                    <i class="bi bi-linkedin"></i>
-                </a>
+                <img src="/public/assets/img/twitter.png" alt="Twitter" class="footer-icons">
+                <img src="/public/assets/img/linkedin.png" alt="Linkedin" class="footer-icons">
+                <img src="/public/assets/img/instagram.png" alt="Instagram" class="footer-icons">
             </div>
-
         </div>
+    </div>
+    <div class="footer-bottom">
 
-        <hr class="border-secondary my-4">
-        <div class="row align-items-center gy-3">
-
+        <div class="row align-items-center mt-4 mx-4">
             <div class="col-12 col-md-6">
                 <h6>Newsletter</h6>
                 <div class="input-group">
@@ -56,14 +48,15 @@
             </div>
 
             <div class="col-12 col-md-6 text-md-end text-center">
-                <img src="/public/assets/img/logo.png" alt="Logo" height="50" class="mb-2">
+                <img src="/public/assets/img/logo-default.png" alt="Logo" height="50" class="mb-2 logo-hover">
             </div>
 
-        </div>
-
-        <div class="text-center mt-4 pb-3 small text-muted">
-             <?= date('Y') ?> HEROS SOS — Tous droits réservés
+            <div class="text-center mt-4 pb-3 small text-muted">
+                <?= date('Y') ?> HEROS SOS — Tous droits réservés
+            </div>
         </div>
 
     </div>
+
+
 </footer>

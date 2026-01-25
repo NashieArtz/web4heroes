@@ -20,12 +20,23 @@ class AuthController extends Controller
         $this->response = new Response();
     }
 
+    //<editor-fold desc="SHOW">
     public function showLogin(): Response
     {
         return $this->view('login');
     }
+    public function showForgotPassword(): Response
+    {
+        return $this->view('forgotten-pwd');
+    }
+    public function showResetPassword(): Response
+    {
+        return $this->view('new-pwd');
+    }
+    //</editor-fold>
 
 
+    //<editor-fold desc="LOGIN">
     public function login(): Response
     {
         $error = null;
@@ -67,24 +78,7 @@ class AuthController extends Controller
 
         return $this->view('login', ['error' => $error]);
     }
+    //</editor-fold>
 
 
-    public function showDashboard(): Response
-    {
-        if (!isset($_SESSION['user_id'])) {
-            return $this->response->redirect('/login');
-        }
-
-        // Récupère le rôle de l'utilisateur
-        $role = $this->userRepository->findRoleById($_SESSION['user_id']);
-
-        switch ($role) {
-            case 'admin':
-                return $this->response->redirect('/admin-dashboard');
-            case 'hero':
-                return $this->response->redirect('/hero-dashboard');
-            default:
-                return $this->response->redirect('/user-dashboard');
-        }
-    }
 }

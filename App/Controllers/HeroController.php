@@ -22,5 +22,12 @@ class HeroController extends Controller
     }
 
 
+    public function showHeroesList(): Response {
+        return $this->view('heroes-list', [
+            'title' => 'Liste des Heroes',
+        ]);
+    }
+
+
 
 }

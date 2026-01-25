@@ -31,4 +31,10 @@ class IncidentController extends Controller
         ]);
     }
 
+    public function showIncidentCreate(): Response {
+        return $this->view('incident-create', [
+            'title' => 'Créer Incident'
+        ]);
+    }
+
 }

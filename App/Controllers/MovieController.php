@@ -21,5 +21,11 @@ class MovieController extends Controller
 
     }
 
+    public function showMovieList(): Response {
+        return $this->view('movies-list', [
+            'title' => 'Liste des Films',
+        ]);
+    }
+
 
 }

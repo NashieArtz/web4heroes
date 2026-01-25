@@ -20,4 +20,10 @@ class VillainController extends Controller
         $this->response = new Response();
 
     }
+
+    public function showVillainList(): Response {
+        return $this->view('villains-list', [
+            'title' => 'Liste des Villains',
+        ]);
+    }
 }

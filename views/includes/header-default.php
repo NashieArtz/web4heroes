@@ -1,14 +1,16 @@
-<nav class="navbar navbar-expand-lg  header">
-    <div class="container">
+<nav class="navbar navbar-expand-lg header">
+
+    <div class="container d-flex justify-content-evenly">
         <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="/public/assets/img/logo.png" alt="Logo" height="30" class="me-2">
+            <img src="/public/assets/img/logo-default.png" alt="Logo" height="30" class="me-2 logo-hover">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
+        <div class="collapse navbar-collapse d-flex justify-content-between
+" id="mainNavbar">
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav d-flex align-items-center mb-2 mb-lg-0">
 
                 <li class="nav-item">
                     <a class="nav-link" href="/">Accueil</a>
@@ -24,9 +26,9 @@
                         Rechercher
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Liste de héros</a></li>
-                        <li><a class="dropdown-item" href="#">Liste des vilains</a></li>
-                        <li><a class="dropdown-item" href="#">Liste des films</a></li>
+                        <li><a class="dropdown-item" href="heroes-list">Liste de héros</a></li>
+                        <li><a class="dropdown-item" href="villains-list">Liste des villains</a></li>
+                        <li><a class="dropdown-item" href="movies-list">Liste des films</a></li>
                     </ul>
                 </li>
 

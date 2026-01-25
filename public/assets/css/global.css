@@ -3,7 +3,7 @@
 
     --tag-danger: light-dark(#E5484D, #FF9592);
     --tag-warning: light-dark(#FFC53D, #FFE7B3);
-    --tag-primary: light-dark(#7CE2FE,#C2F3FF);
+    --tag-primary: light-dark(#7CE2FE, #C2F3FF);
     --tag-success: light-dark(#BDEE63, #E3F7BA);
     --tag-default: light-dark(#606060, #EEEEEE);
     --background-primary: light-dark(#111927, #344e77);
@@ -13,27 +13,40 @@
     --ink-inverse: #f1f1f1;
 
 
-
-
 }
-
 
 main {
     margin: 0 5%;
     font-family: "Winky Sans", serif;
-
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .header {
     background-color: var(--background-primary);
 }
+.logo-hover {
+    transition: transform .2s;
+}
+
+.logo-hover:hover {
+    transform: scale(1.5);
+}
 
 
 .footer-top {
     background-color: var(--background-primary);
+    margin-top: auto;
 }
 
 .footer-bottom {
     background-color: var(--background-secondary);
+    border-top: 1px solid gray;
+}
+
+.footer-icons  {
+    max-width: 30px;
+    max-height: 30px;
 }
 

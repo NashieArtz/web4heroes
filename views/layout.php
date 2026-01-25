@@ -9,12 +9,15 @@
     <title>Web4Heroes</title>
 </head>
 <body>
+
+<!-- TODO: Logic for header/footer-<=role?> -->
 <?php include "includes/header-default.php"; ?>
 <main>
     <?php
     include $viewFile;
     ?>
 </main>
+
 <?php include "includes/footer-default.php"; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

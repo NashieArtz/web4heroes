@@ -25,14 +25,6 @@ class RegisterController extends Controller
     {
         return $this->view('register');
     }
-    public function showForgotPassword(): Response
-    {
-        return $this->view('forgotten-pwd');
-    }
-    public function showResetPassword(): Response
-    {
-        return $this->view('new-pwd');
-    }
 
 
     /**
