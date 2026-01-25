@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Core\Controller;
 use App\Core\Request;
 use App\Core\Response;
 use App\Repository\UserRepository;
 
-class ExceptionsController extends Controller
+class VillainController extends Controller
 {
+
+    private UserRepository $userRepository;
     private Response $response;
 
     public function __construct(Request $request, UserRepository $userRepository)
@@ -18,4 +21,9 @@ class ExceptionsController extends Controller
 
     }
 
+    public function showVillainList(): Response {
+        return $this->view('villains-list', [
+            'title' => 'Liste des Villains',
+        ]);
+    }
 }
