@@ -1,9 +1,6 @@
 <?php
 
-use App\Controllers\{
-    AuthController,
-    HomeController,
-};
+use App\Controllers\{AuthController, HomeController, IncidentController};
 use App\Core\Router;
 
 return function (Router $router) {

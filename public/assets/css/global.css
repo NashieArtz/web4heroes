@@ -6,6 +6,8 @@
     --tag-primary: light-dark(#7CE2FE,#C2F3FF);
     --tag-success: light-dark(#BDEE63, #E3F7BA);
     --tag-default: light-dark(#606060, #EEEEEE);
+    --background-primary: light-dark(#111927, #344e77);
+    --background-secondary: light-dark(#1D2A41, #3b5786);
 
     --ink: #010101;
     --ink-inverse: #f1f1f1;
@@ -22,4 +24,16 @@ main {
 
 }
 
+.header {
+    background-color: var(--background-primary);
+}
+
+
+.footer-top {
+    background-color: var(--background-primary);
+}
+
+.footer-bottom {
+    background-color: var(--background-secondary);
+}
 
