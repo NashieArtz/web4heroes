@@ -1,33 +1,26 @@
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-                <div class="card shadow">
-                    <div class="card-header text-center bg-primary text-white">
-                        <h2 class="mb-0">Inscription - HEROS SOS</h2>
+<section>
+    <div >
+        <div>
+            <div >
+                <div >
+                    <div >
+                        <h2>Inscription - HEROS SOS</h2>
                     </div>
 
-                    <div class="card-body">
+                    <div>
                         <?php if (!empty($errors)): ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div>
                                 <strong>Erreur(s)d'inscription :</strong>
-                                <ul class="mb-0 mt-2">
+                                <ul>
                                     <?php foreach ($errors as $error): ?>
                                         <li><?= htmlspecialchars($error) ?></li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($success): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>✓ Inscription réussie !</strong>
-                                <p class="mb-0 mt-2">Bienvenue, <?= htmlspecialchars($username) ?></p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <button type="button"></button>
                             </div>
                         <?php endif; ?>
 
-                        <form action="/App/Controllers/AuthController" method="POST">
+                        <form action="register" method="POST">
                             <h4 class="mb-3">Informations personnelles</h4>
 
                            <!-- <div class="row mb-3">
@@ -41,105 +34,87 @@
                                 </div>
                             </div> -->
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Nom <span class="text-danger">*</span></label>
-                                    <input type="text" name="lastname" class="form-control" placeholder="Nom" required>
+                            <div>
+                                <div >
+                                    <label>Nom <span>*</span></label>
+                                    <input type="text" name="lastname"  placeholder="Nom" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Prénom <span class="text-danger">*</span></label>
-                                    <input type="text" name="firstname" class="form-control" placeholder="Prénom" required>
-                                </div>
-                            </div>
-
-                            <div class="row mb-4">
-                                <div class="col-md-4">
-                                    <label class="form-label">Date de naissance <span class="text-danger">*</span></label>
-                                    <input type="date" name="birthdate" class="form-control" required>
+                                <div >
+                                    <label >Prénom <span >*</span></label>
+                                    <input type="text" name="firstname"  placeholder="Prénom" required>
                                 </div>
                             </div>
 
-                            <h4 class="mb-3">Informations complémentaires</h4>
-
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <label class="form-label">N° de portable <span class="text-danger">*</span></label>
-                                    <input type="tel" name="phone" class="form-control" placeholder="06..." required>
+                            <div >
+                                <div>
+                                    <label >Date de naissance <span >*</span></label>
+                                    <input type="date" name="birthdate"  required>
                                 </div>
                             </div>
 
-                            <h4 class="mb-3">Coordonnées</h4>
-
-                            <div class="mb-3">
-                                <label class="form-label">Nom de rue</label>
-                                <input type="text" name="street" class="form-control" placeholder="5 Boulevard Gambetta">
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Ville</label>
-                                    <input type="text" name="ville" class="form-control" placeholder="Ville">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Code Postal</label>
-                                    <input type="text" name="postal_code" class="form-control" placeholder="76000">
+                            <h4>Informations complémentaires</h4>
+                            <div>
+                                <div >
+                                    <label >N° de portable <span >*</span></label>
+                                    <input type="tel" name="phone"  placeholder="06..." required>
                                 </div>
                             </div>
 
-                            <div class="row mb-4">
-                                <div class="col-md-4">
-                                    <label class="form-label">Pays</label>
-                                    <select name="country" class="form-select">
+                            <h4>Coordonnées</h4>
+
+                            <div>
+                                <label>Nom de rue</label>
+                                <input type="text" name="street" placeholder="5 Boulevard Gambetta">
+                            </div>
+
+                            <div >
+                                <div>
+                                    <label >Ville</label>
+                                    <input type="text" name="city"  placeholder="Ville">
+                                </div>
+                                <div>
+                                    <label >Code Postal</label>
+                                    <input type="text" name="postal_code"  placeholder="76000">
+                                </div>
+                            </div>
+
+                            <div >
+                                <div >
+                                    <label >Pays</label>
+                                    <select name="country" >
                                         <option value="France">France</option>
                                         <option value="Belgique">Belgique</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <h4 class="mb-3">Sécurité</h4>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">E-mail <span class="text-danger">*</span></label>
-                                    <input type="email" name="email" class="form-control" required>
+                            <h4 >Sécurité</h4>
+                            <div >
+                                <div>
+                                    <label>E-mail <span >*</span></label>
+                                    <input type="email" name="email"  required>
                                 </div>
                             </div>
 
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <label class="form-label">Mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" name="pwd" class="form-control" minlength="6" required>
-                                    <small class="form-text text-muted">Min. 6 caractères</small>
+                            <div>
+                                <div>
+                                    <label >Mot de passe <span >*</span></label>
+                                    <input type="password" name="pwd"  minlength="6" required>
+                                    <small >Min. 6 caractères</small>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Confirmation <span class="text-danger">*</span></label>
-                                    <input type="password" name="pwd_confirm" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-check mb-4">
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       name="is_hero_request"
-                                       id="isHeroRequest"
-                                       value="1">
-
-                                <label class="form-check-label fw-bold" for="isHeroRequest">
-                                    Je suis un héros et je souhaite être validé par les modérateurs
-                                </label>
-
-                                <div class="form-text">
-                                    Votre profil héros sera examiné avant activation.
+                                <div >
+                                    <label >Confirmation <span >*</span></label>
+                                    <input type="password" name="pwd_confirm" required>
                                 </div>
                             </div>
 
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">
+                            <div>
+                                <button type="submit" >
                                     M'inscrire
                                 </button>
                             </div>
 
-                            <p class="text-center mt-3">
+                            <p>
                                 Déjà inscrit ? <a href="login.php">Se connecter</a>
                             </p>
                         </form>

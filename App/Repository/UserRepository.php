@@ -78,10 +78,9 @@ final class UserRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             'username' => $identifier,
-            'email' => $identifier
+            'email'    => $identifier,
         ]);
-
-        return $stmt->fetch() ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
     public function findRoleById(int $userId): ?string
     {
@@ -131,17 +130,16 @@ final class UserRepository
      */
     public function createUser(array $data): void
     {
-        $stmt = $this->pdo->prepare('INSERT INTO `users` (`username`, `email`, `pwd`, `lastname`, `firstname`,
+        $stmt = $this->pdo->prepare('INSERT INTO `users` (`email`, `pwd`, `lastname`, `firstname`,
         `birthdate`, `phone`)
-        VALUES (:username, :email, :pwd, :lastname, :firstname, :birthdate, :phone)');
+        VALUES (:email, :pwd, :lastname, :firstname, :birthdate, :phone)');
         $stmt->execute([
-            ':username' => $data['username'],
             ':email' => $data['email'],
             ':pwd' => $data['pwd'],
             ':lastname' => $data['lastname'],
             ':firstname' => $data['firstname'],
             ':birthdate' => $data['birthdate'],
-            ':phone' => $data['phone'],
+            ':phone' => $data['phone']
         ]);
     }
 
@@ -220,7 +218,4 @@ final class UserRepository
             throw $e;
         }
     }
-
-
-
 }

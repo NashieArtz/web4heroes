@@ -25,44 +25,43 @@ final class AddressRepository
      * @param array $data
      * @return void
      */
-    public function create(array $data) {
-
-    }
-//
-//    /**
-//     * @param array $data
-//     * @return void
-//     */
-//    public function update(array $data) {
-//
-//    }
-//
-//    /**
-//     * @param array $data
-//     * @return void
-//     */
-//    public function delete(array $data) {
-//
-//
-
-
-    public function createAdressUser(array $data): int
-    {
-        $stmt = $this->pdo->prepare('
-            INSERT INTO address(number, complement, street, postal_code, city, country, users_id
-            VALUES (:number, :complement, :street, :postal_code, :city, :country, :users_id) ');
+    public function create(array $data): int {
+        $stmt = $this->pdo->prepare('INSERT INTO `address`
+(number, complement, street, postal_code, city_id, country_id, users_id)
+VALUES (:number, :complement, :street, :postal_code, :city_id, :country_id, :users_id)');
         $stmt->execute([
-            ':number' => $data['number'],
-            ':complement' => $data['complement'],
-            ':street' => $data['street'],
-            ':postal_code' => $data['postal_code'],
-            ':city' => $data['city'],
-            ':country' => $data['country'],
-            ':users_id' => $data['users_id'],
+            ':number' => $data['number'] ?? null,
+            ':complement' => $data['complement'] ?? null,
+            ':street' => $data['street'] ?? null,
+            ':postal_code' => $data['postal_code'] ?? null,
+            ':city_id' => (int)$data['city_id'],
+            ':country_id' => (int)$data['country_id'],
+            ':users_id' => $data['users_id']
         ]);
-
         return (int)$this->pdo->lastInsertId();
     }
+
+    public function findIdByData(array $data): ?int {
+        $stmt = $this->pdo->prepare('SELECT id FROM `address`
+          WHERE number = :number
+            AND complement = :complement
+            AND street = :street
+            AND postal_code = :postal_code
+            AND city_id = :city_id
+            AND country_id = :country_id');
+        $stmt->execute([
+            ':number' => $data['number'] ?? null,
+            ':complement' => $data['complement'] ?? null,
+            ':street' => $data['street'] ?? null,
+            ':postal_code' => $data['postal_code'] ?? null,
+            ':city_id' => (int)$data['city_id'],
+            ':country_id' => (int)$data['country_id']
+        ]);
+        $id = $stmt -> fetchColumn();
+        return $id ? (int)$id : null;
+    }
+
+
 
     public function updateByUser(int $id, array $data): bool
     {
@@ -72,8 +71,8 @@ final class AddressRepository
                 complement = :complement,
                 street = :street,
                 postal_code = :postal_code,
-                city = :city,
-                country = :country
+                city_id = :city_id,
+                country_id = :country_id
             WHERE id = :id
         ");
         $stmt->execute([
@@ -82,8 +81,8 @@ final class AddressRepository
             ':complement' => $data['complement'],
             ':street' => $data['street'],
             ':postal_code' => $data['postal_code'],
-            ':city' => $data['city'],
-            ':country' => $data['country']
+            ':city_id' => $data['city_id'],
+            ':country_id' => $data['country_id']
         ]);
         return $stmt->rowCount() > 0;
     }
@@ -101,7 +100,7 @@ final class AddressRepository
     public function findByUserId(int $userId): ?array
     {
         $stmt = $this->pdo->prepare("
-            SELECT number, complement, street, postal_code, city, country
+            SELECT number, complement, street, postal_code, city_id, country_id
             FROM address
             WHERE users_id = :userId
         ");

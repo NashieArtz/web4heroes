@@ -26,6 +26,13 @@ final class HeroRepository
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
+    public function findHeroID(int $userID): int
+    {
+        $stmt = $this->pdo->prepare('SELECT id FROM `hero_profile` WHERE `users_id` = :id');
+        $stmt->execute(['id' => $userID]);
+        return $stmt->fetchColumn();
+    }
+
     /**
      * @return array
      */

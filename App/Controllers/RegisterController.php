@@ -23,7 +23,13 @@ class RegisterController extends Controller
 
     public function showRegister(): Response
     {
-        return $this->view('register');
+        return $this->view('register',
+        ['title' => 'Inscription']);
+    }
+
+    public function showRegisterConfirmation(): Response {
+        return $this->view('register-confirmation',
+        ['title' => 'Confirmation d\'inscription']);
     }
 
 
@@ -52,14 +58,13 @@ class RegisterController extends Controller
 
             $data = $this->request->input();
             $data = [
-                'lastname' => trim($_POST['lastname'] ?? ''),
-                'firstname' => trim($_POST['firstname'] ?? ''),
-                'birthdate' => $_POST['birthdate'] ?? '',
-                'phone' => trim($_POST['phone'] ?? ''),
-                'username' => trim($_POST['username'] ?? ''),
-                'email' => trim($_POST['email'] ?? ''),
-                'pwd' => $_POST['pwd'] ?? '',
-                'pwd_confirm' => $_POST['pwd_confirm'] ?? '',
+                'lastname' => htmlspecialchars(trim($_POST['lastname'] ?? ''), ENT_QUOTES),
+                'firstname' => htmlspecialchars(trim($_POST['firstname'] ?? ''), ENT_QUOTES),
+                'birthdate' => $_POST['birthdate'] ?? '' ,
+                'phone' => htmlspecialchars(trim($_POST['phone'] ?? ''),ENT_QUOTES),
+                'email' => htmlspecialchars(trim($_POST['email'] ?? ''), ENT_QUOTES),
+                'pwd' => htmlspecialchars($_POST['pwd'] ?? '', ENT_QUOTES),
+                'pwd_confirm' => htmlspecialchars($_POST['pwd_confirm'] ?? '', ENT_QUOTES),
             ];
             $success = true;
             //validation
@@ -71,44 +76,35 @@ class RegisterController extends Controller
             if ($data['lastname'] === '' || $data['firstname'] === '') {
                 $errors[] = 'Le nom et le prénom sont obligatoires.';
             }
-
             if ($data['birthdate'] === '') {
                 $errors[] = 'La date de naissance est obligatoire.';
             }
-
             if ($data['phone'] === '') {
                 $errors[] = 'Le numéro de téléphone est obligatoire.';
             }
-
-            if ($data['username'] === '') {
-                $errors[] = 'Le nom d’utilisateur est obligatoire.';
-            }
-
             if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors[] = 'Adresse email invalide.';
             }
-
             if (strlen($data['pwd']) < 6) {
                 $errors[] = 'Le mot de passe doit contenir au moins 6 caractères.';
             }
-
             if ($data['pwd'] !== $data['pwd_confirm']) {
                 $errors[] = 'Les mots de passe ne correspondent pas.';
             }
-
             // On hach le mot de passe si y'a pas d'erreur
             if (empty($errors)) {
                 $data['pwd'] = password_hash($data['pwd'], PASSWORD_DEFAULT);
+//                if ($is_hero_request == 1) {
+//
+//                }
 
                 $this->userRepository->createUser($data);
 
-                return $this->response->redirect('/');
+                return $this->response->redirect('/register-confirmation');
             }
         }
 
         return $this->view('register', ['errors' => $errors]);
         //</editor-fold>
-        $this->userRepository->createUser($data);
-        return $this->response->redirect('/');
     }
 }

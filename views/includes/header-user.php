@@ -15,7 +15,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Accueil</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="incident-create">
                         Déclarer un incident
@@ -34,12 +33,12 @@
 
             </ul>
             <div class="d-flex gap-2">
-                <a href="login" class="btn btn-outline-light">
-                    Connexion
-                </a>
-                <a href="register" class="btn btn-primary">
-                    Inscription
-                </a>
+                <form action="/user-dashboard" method="GET">
+                    <button type="submit">Mon Espace</button>
+                </form>
+                <form action="/logout" method="POST">
+                    <button type="submit">Déconnexion</button>
+                </form>
             </div>
 
         </div>

@@ -55,8 +55,5 @@
                 <?= date('Y') ?> HEROS SOS — Tous droits réservés
             </div>
         </div>
-
     </div>
-
-
 </footer>

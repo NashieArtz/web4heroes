@@ -4,11 +4,10 @@
             <h1 class="fw-bold">Votre Sécurité, Notre Mission</h1>
             <p>Rejoignez la communauté et signalez les incidents en temps réel.</p>
             <button class="btn btn-info text-white rounded-pill px-4">
-                Signaler un incident <i class="fas fa-arrow-circle-right"></i>
+                 Signaler un incident
             </button>
         </div>
     </section>
-
     <section class="container my-5">
         <div class="row text-center">
             <div class="col-md-4">
@@ -37,7 +36,6 @@
             </div>
         </div>
     </section>
-
     <section class="container text-center mb-5">
         <h2 class="mb-4">Incidents</h2>
 
@@ -60,7 +58,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="carousel-item">
                     <div class="d-flex justify-content-center">
                         <div class="rounded text-white d-flex flex-column justify-content-between p-4"
@@ -72,14 +69,12 @@
                             <div class="py-5">
                                 <h3 class="h4 m-0">Autre Lieu</h3>
                             </div>
-
                             <button class="btn btn-primary btn-sm w-100">Voir plus</button>
                         </div>
                     </div>
                 </div>
 
             </div>
-
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
                 <span class="visually-hidden">Précédent</span>

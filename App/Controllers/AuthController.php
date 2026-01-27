@@ -2,22 +2,26 @@
 declare(strict_types=1);
 
 namespace App\Controllers;
+
 use App\Core\Controller;
 use App\Core\Request;
 use App\Core\Response;
 use App\Repository\AddressRepository;
+use App\Repository\HeroRepository;
 use App\Repository\UserRepository;
 
 class AuthController extends Controller
 {
     private UserRepository $userRepository;
+    private HeroRepository $heroRepository;
     private Response $response;
 
-    public function __construct(Request $request, UserRepository $userRepository)
+    public function __construct(Request $request, UserRepository $userRepository, HeroRepository $heroRepository, Response $response)
     {
         parent::__construct($request);
         $this->userRepository = $userRepository;
-        $this->response = new Response();
+        $this->heroRepository = $heroRepository;
+        $this->response = $response;
     }
 
     //<editor-fold desc="SHOW">
@@ -25,10 +29,12 @@ class AuthController extends Controller
     {
         return $this->view('login');
     }
+
     public function showForgotPassword(): Response
     {
         return $this->view('forgotten-pwd');
     }
+
     public function showResetPassword(): Response
     {
         return $this->view('new-pwd');
@@ -42,34 +48,34 @@ class AuthController extends Controller
         $error = null;
 
         if ($this->request->method() === 'POST') {
-            $identifier = trim($_POST['pseudo'] ?? '');
-            $password = $_POST['password'] ?? '';
+            $identifier = trim($_POST['user-email'] ?? '');
+            $password = $_POST['pwd'] ?? '';
 
             if (empty($identifier) || empty($password)) {
                 $error = 'Tous les champs sont obligatoires.';
             } else {
                 $user = $this->userRepository->findByUsernameOrEmail($identifier);
-
                 if ($user && password_verify($password, $user['pwd'])) {
+                    $_SESSION['user'] = [
+                        'userID' => $user['id'],
+                        'username' => $user['username'],
+                        'email' => $user['email'],
+                        'role' => $user['role']
+                    ];
 
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['firstname'] = $user['firstname'];
-                    $_SESSION['role'] = $user['role'];
+                    if ($user['role'] === 'hero') {
+                        $heroID = $this->heroRepository->findHeroID($user['id']);
+                        $_SESSION['user'] += [
+                            'heroID' => $heroID,
+                        ];
+                    }
 
                     // Redirection selon le rôle
-
-
-                    var_dump($_SESSION);
-
-                    switch ($user['role']) {
-                        case 'admin':
-                            return $this->response->redirect('/admin-dashboard');
-                        case 'hero':
-                            return $this->response->redirect('/hero-dashboard');
-                        default:
-                            return $this->response->redirect('/user-dashboard');
-                    }
+                    return match ($user['role']) {
+                        'admin' => $this->response->redirect('/admin-dashboard'),
+                        'hero' => $this->response->redirect('/hero-dashboard'),
+                        default => $this->response->redirect('/user-dashboard'),
+                    };
                 } else {
                     $error = 'Identifiant ou mot de passe incorrect.';
                 }
@@ -78,7 +84,19 @@ class AuthController extends Controller
 
         return $this->view('login', ['error' => $error]);
     }
+
     //</editor-fold>
 
 
+    public function logout(): Response
+    {
+        $_SESSION = [];
+
+// Détruire la session
+        session_destroy();
+
+// Redirection vers l'accueil
+        header("Location: http://web4heroes.dvl.to/");
+        exit();
+    }
 }
