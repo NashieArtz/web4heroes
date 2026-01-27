@@ -14,8 +14,13 @@ use App\Controllers\NewsletterController;
 use App\Controllers\RegisterController;
 use App\Controllers\UserController;
 use App\Controllers\VillainController;
+use App\Repository\CityRepository;
+use App\Repository\CountryRepository;
+use App\Repository\HeroRepository;
+use App\Repository\IncidentRepository;
 use App\Repository\UserRepository;
 use App\Repository\AddressRepository;
+use App\Repository\VillainRepository;
 use Couchbase\User;
 use PDO;
 
@@ -42,7 +47,8 @@ final class Container
             AuthController::class => new AuthController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
-
+                new HeroRepository($this->pdo),
+                new Response()
             ),
 
             DashboardController::class => new DashboardController(
@@ -63,6 +69,12 @@ final class Container
             IncidentController::class => new IncidentController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new Response(),
+                new IncidentRepository($this->pdo),
+                new AddressRepository($this->pdo),
+                new VillainRepository($this->pdo),
+                new CountryRepository($this->pdo),
+                new CityRepository($this->pdo),
             ),
 
             MovieController::class => new MovieController(

@@ -1,33 +1,33 @@
-<section class="py-4">
-    <div class="container-fluid">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
+<section >
+    <div>
+        <nav >
+            <ol>
+                <li >
                     <a href="#">Web 4 Heroes</a>
                 </li>
-                <li class="breadcrumb-item">
+                <li >
                     <a href="#">Admin</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
+                <li >
                     Validation des films
                 </li>
             </ol>
         </nav>
 
-        <h1 class="mb-4">Validation des Films</h1>
+        <h1 >Validation des Films</h1>
 
-        <div class="row g-4">
-            <div class="col-12 col-lg-9">
+        <div>
+            <div>
 
-                <div class="card shadow-sm">
-                    <div class="card-body">
+                <div >
+                    <div>
 
                         <h2 class="h4 mb-3">Films en attente</h2>
 
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle">
+                        <div >
+                            <table >
 
-                                <thead class="table-dark">
+                                <thead >
                                 <tr>
                                     <th>Affiche</th>
                                     <th>Titre</th>
@@ -42,21 +42,21 @@
                                 <?php foreach ($films_en_attente as $film): ?>
                                     <tr>
                                         <td>
-                                            <div class="bg-secondary rounded" style="width:50px;height:70px;"></div>
+                                            <div></div>
                                         </td>
                                         <td><?= htmlspecialchars($film['titre']) ?></td>
                                         <td><?= htmlspecialchars($film['heros']) ?></td>
                                         <td><?= htmlspecialchars($film['date']) ?></td>
                                         <td>
-                                            <span class="badge bg-warning text-dark">
+                                            <span >
                                                 En attente
                                             </span>
                                         </td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-success me-2">
+                                        <td >
+                                            <button>
                                                 Valider
                                             </button>
-                                            <button class="btn btn-sm btn-danger">
+                                            <button >
                                                 Rejeter
                                             </button>
                                         </td>
@@ -71,12 +71,12 @@
                 </div>
 
             </div>
-            <div class="col-12 col-lg-3">
+            <div>
 
-                <div class="card shadow-sm">
-                    <div class="card-body">
+                <div>
+                    <div>
 
-                        <h2 class="h5 mb-3">Statistiques</h2>
+                        <h2>Statistiques</h2>
 
                         <p>
                             En attente :

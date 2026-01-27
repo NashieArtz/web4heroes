@@ -39,6 +39,10 @@ class DashboardController extends Controller
 
     public function showUserDashboard(): Response
     {
+        // TODO: ne pas écho ici mais faire afficher une div
+        if (isset($_SESSION['incidentCreated']) && $_SESSION['incidentCreated'] === true) {
+            echo 'La création de l\'incident a bien été créé. Une intervention sera créée sous peu';
+        }
         return $this->view('dashboard/user-dashboard');
     }
 

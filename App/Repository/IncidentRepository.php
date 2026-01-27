@@ -14,75 +14,72 @@ final class IncidentRepository
         $this->pdo = $pdo;
     }
 
-    public function findByID(int $id): array
+    public function findByID(int $id): ?array
     {
         $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `id` = :id');
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function updateIncident(int $id, array $data): void
-    {
-        $stmt = $this->pdo->prepare('UPDATE `incidents` SET
-                       `title` = :title,
-                       `description` = :description,
-                       `date` = :date,
-                       `priority` = :priority,
-                       `type` = :type,
-                       `villain_profile_id` = :villain_profile_id,
-                       `status` = :status
-                       WHERE `id` = :id');
+    public function createIncident(array $data, ?int $userID, ?int $villainID, ?int $addressID): void {
+        $stmt = $this->pdo->prepare('INSERT INTO `incidents`
+(title, description, type, users_id, villain_profile_id, address_id)
+VALUES (:title, :description, :type, :users_id, :villain_profile_id, :address_id)');
+        if($userID === 0) {
+            $userID = null;
+        }
+        if($villainID === 0) {
+            $villainID = null;
+        }
         $stmt->execute([
             'title' => $data['title'],
             'description' => $data['description'],
-            'date' => $data['date'],
-            'priority' => $data['priority'],
             'type' => $data['type'],
-            'villain_profile_id' => $data['villain_profile_id'],
-            'status' => $data['status'],
-            'id' => $id
+            'users_id' => $userID,
+            'villain_profile_id' => $villainID,
+            'address_id' => $addressID
         ]);
-}
-
-    public function findAllActiveIncident(): array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `status` = :status');
-        $stmt->execute(['status' => 1]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findIncidentByPriority(string $priority): array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `priority` = :priority');
-        $stmt->execute(['priority' => $priority]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    public function findIncidentTypes(): array {
+            $sql = "
+        SELECT COLUMN_TYPE
+        FROM information_schema.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE()
+          AND TABLE_NAME = 'incidents'
+          AND COLUMN_NAME = 'type'
+        ";
+
+            $stmt = $this->pdo->query($sql);
+            $column = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if (!isset($column['COLUMN_TYPE'])) {
+                return [];
+            }
+
+            preg_match("/^enum\((.*)\)$/", $column['COLUMN_TYPE'], $matches);
+
+            if (!isset($matches[1])) {
+                return [];
+            }
+
+            return str_getcsv($matches[1], ',', "'");
     }
 
-    public function findIncidentByType(string $type): array
+    public function findDuplicate(string $city, string $country, string $title, string $type): bool
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `type` = :type');
-        $stmt->execute(['type' => $type]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function findIncidentByReporter(int $userId): array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `users_id` = :user_id');
-        $stmt->execute(['user_id' => $userId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function findIncidentHistoryByVillain(int $villainId): array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `villain_profile_id` = :villain_id');
-        $stmt->execute(['villain_id' => $villainId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function deleteIncident(int $id) : void
-    {
-        $stmt = $this->pdo->prepare('DELETE FROM `incidents` WHERE `id` = :id');
-        $stmt->execute(['id' => $id]);
-
+        $stmt = $this->pdo->prepare('SELECT 1 FROM `address` as a JOIN `incidents` as i
+        WHERE i.title = :title
+            AND i.type = :type
+            AND a.city = :city
+            AND a.country = :country
+            AND i.status = \'open\'');
+        $stmt->execute([
+            ':title' => $title,
+            ':type' => $type,
+            ':city' => $city,
+            ':country' => $country
+        ]);
+        return (bool)$stmt->fetchColumn();
     }
 }

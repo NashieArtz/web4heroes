@@ -11,7 +11,29 @@
 <body>
 
 <!-- TODO: Logic for header/footer-<=role?> -->
-<?php include "includes/header-default.php"; ?>
+
+<?php
+
+var_dump($_SESSION);
+?>
+<form action="/logout" method="POST">
+    <button type="submit">Déconnecter</button>
+</form>
+<?php
+if(isset($_SESSION['user']) && is_array($_SESSION['user'])) {
+    $role = $_SESSION['user']['role'] ?? null;
+    if ($role == 'admin') {
+        include 'views/includes/header-admin.php';
+    }
+    if ($role == 'hero') {
+        include 'views/includes/header-hero.php';
+    }
+    if ($role == 'user') {
+        include 'views/includes/header-user.php';
+    }
+}
+else include 'views/includes/header-default.php';
+?>
 <main>
     <?php
     include $viewFile;

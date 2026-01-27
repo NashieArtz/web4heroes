@@ -17,29 +17,31 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="incident-create">
-                        Déclarer un incident
+                    <a class="nav-link" href="admin-incidents-list">
+                        Liste Incidents
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        Rechercher
+                <li>
+                <a class="nav-link" href="admin-users-list">
+                    Liste Utilisateurs
+                </a>
+                </li>
+                <li>
+                <a class="nav-link" href="admin-movies-list">
+                    Liste Films
+                </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="admin-newsletters">
+                        Newsletters
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="heroes-list">Liste de héros</a></li>
-                        <li><a class="dropdown-item" href="villains-list">Liste des villains</a></li>
-                        <li><a class="dropdown-item" href="movies-list">Liste des films</a></li>
-                    </ul>
                 </li>
 
             </ul>
             <div class="d-flex gap-2">
-                <a href="login" class="btn btn-outline-light">
-                    Connexion
-                </a>
-                <a href="register" class="btn btn-primary">
-                    Inscription
-                </a>
+                <form action="/logout" method="POST">
+                    <button type="submit">Déconnecter</button>
+                </form>
             </div>
 
         </div>

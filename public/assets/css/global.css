@@ -14,10 +14,12 @@
 
 
 }
+* {
+    font-family: "Winky Sans", serif;
+}
 
 main {
     margin: 0 5%;
-    font-family: "Winky Sans", serif;
     display: flex;
     min-height: 100vh;
     flex-direction: column;

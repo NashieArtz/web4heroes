@@ -21,4 +21,10 @@ class NewsletterController extends Controller
 
     }
 
+    public function showNewsletters(): Response {
+        return $this->view('admin/admin-newsletters', [
+            'title' => 'Newsletter',
+        ]);
+    }
+
 }
