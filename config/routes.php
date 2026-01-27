@@ -8,9 +8,9 @@ use App\Controllers\{AdminController,
     HomeController,
     IncidentController,
     MovieController,
+    NewsletterController,
     RegisterController,
-    VillainController
-};
+    VillainController};
 use App\Core\Router;
 
 return function (Router $router) {
@@ -18,6 +18,10 @@ return function (Router $router) {
 
     //ADMINCONTROLLER
     $router->get('/admin-user-management', [AdminController::class, 'showUserManagement']);
+    $router->get('/admin-incidents-list', [AdminController::class, 'showIncidents']);
+    $router->get('/admin-movies-list', [AdminController::class, 'showMovies']);
+    $router->get('/admin-newsletters', [AdminController::class, 'showNewsletters']);
+    $router->get('/admin-users-list', [AdminController::class, 'showUsersList']);
 
     // AUTHCONTROLLER
     $router->get('/login', [AuthController::class, 'showLogin']);
@@ -40,20 +44,26 @@ return function (Router $router) {
 
     //HEROCONTROLLER
     $router->get('/heroes-list', [HeroController::class, 'showHeroesList']);
+    $router->get('/hero-reputation', [HeroController::class, 'showHeroReputation']);
 
     //INCIDENTCONTROLLER
     $router->get('/incident-list', [IncidentController::class, 'showIncidents']);
     $router->get('/incident-detail', [IncidentController::class, 'showIncidentDetail']);
+
     $router->get('/incident-create', [IncidentController::class, 'showIncidentCreate']);
+    $router->post('/incident-create', [IncidentController::class, 'createIncident']);
 
     //MOVIECONTROLLER
     $router->get('/movies-list', [MovieController::class, 'showMovieList']);
+    $router->get('/hero-movies', [MovieController::class, 'showMoviesHero']);
 
     //NEWSLETTERCONTROLLER
+    $router->get('/admin-newsletters', [NewsletterController::class, 'showNewsletters']);
 
     //REGISTERCONTROLLER
     $router->get('/register', [RegisterController::class, 'showRegister']);
     $router->post('/register', [RegisterController::class, 'register']);
+    $router->get('/register-confirmation', [RegisterController::class, 'showRegisterConfirmation']);
 
     //USERCONTROLLER
 

@@ -17,9 +17,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="incident-create">
-                        Déclarer un incident
-                    </a>
+                    <form action="/hero-movies" method="GET">
+                        <button type="submit">Mes Films</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <form action="/hero-reputation" method="GET">
+                        <button type="submit">Ma Réputation</button>
+                    </form>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -34,12 +39,12 @@
 
             </ul>
             <div class="d-flex gap-2">
-                <a href="login" class="btn btn-outline-light">
-                    Connexion
+                <a href="hero-dashboard" class="btn btn-outline-light">
+                    Mon espace
                 </a>
-                <a href="register" class="btn btn-primary">
-                    Inscription
-                </a>
+                <form action="/logout" method="POST">
+                    <button type="submit">Déconnecter</button>
+                </form>
             </div>
 
         </div>

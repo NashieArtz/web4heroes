@@ -42,6 +42,25 @@ final class VillainRepository
         ]);
     }
 
+    public function createNewVillain(string $villainAlias): int {
+        if($this->villainExists($villainAlias)) {
+            $stmt = $this->pdo->prepare('SELECT id FROM villain_profile WHERE alias = :alias');
+            $stmt->execute(['alias' => $villainAlias]);
+            return $stmt->fetchColumn();
+        }
+        else {
+            $stmt = $this->pdo->prepare('INSERT INTO villain_profile (alias) VALUES (:alias)');
+            $stmt->execute(['alias' => $villainAlias]);
+            return (int)$this->pdo->lastInsertId();
+        }
+    }
+
+    public function villainExists(string $villainAlias): bool {
+        $stmt = $this->pdo->prepare('SELECT 1 FROM villain_profile WHERE alias = :alias');
+        $stmt->execute(['alias' => $villainAlias]);
+        return (bool) $stmt->fetchColumn();
+    }
+
 
     public function update(int $id, array $data): bool
     {
