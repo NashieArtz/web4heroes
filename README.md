@@ -12,8 +12,8 @@
 
 ## 🛠️ Stack Technique
 
-- **Backend** : PHP 8.x (Natif, Programmation Orientée Objet).
-- **Frontend** : Bootstrap 5, Twig ou PHP Natif (Views).
+- **Backend** : PHP 8.4 (Natif, Programmation Orientée Objet).
+- **Frontend** : Bootstrap 5, PHP Natif
 - **Base de données** : MySQL (Gestion des clés étrangères et contraintes d'intégrité).
 - **Gestion de version** : Git / GitLab.
 
@@ -26,18 +26,26 @@
 │   ├── Controllers/    # IncidentController, UserController, etc.
 │   ├── Core/           # Classes de base (Controller, Request, Response)
 │   ├── Repository/     # Logique SQL (IncidentRepository, AddressRepository)
-│   └── Views/          # Templates HTML/PHP (incident-create, incident-list)
+├── views/              # Templates HTML/PHP (home.php, layout.php, hero-dashboard.php, etc.)
+│   ├── admin/
+│   ├── dashboard/
+│   ├── includes/
+│   ├── error/
+│   ├── hero/
+├── config/             # Connection & schéma de la base de données et routing
+├── vendor/             # Autoloading
 ├── public/             # Point d'entrée (index.php, CSS, JS)
-├── uploads/            # Assets et images des vilains
-└── database.sql        # Schéma complet de la base de données
-
+└───├── assets/
+    │   ├── img/
+    │   ├── css/
+    └───├── js/
 ```
 
 ## ⚙️ Installation Rapide
 
 1. **Cloner le projet** :
 ```bash
-git clone [https://gitlab.com/ton-profil/web4heroes.git](https://gitlab.com/ton-profil/web4heroes.git)
+git clone [https://gitlab.com/NashieArtz/web4heroes.git](https://gitlab.com/NashieArtz/web4heroes.git)
 cd web4heroes
 
 ```
