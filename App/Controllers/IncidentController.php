@@ -87,8 +87,8 @@ class IncidentController extends Controller
                 'complement' => htmlspecialchars($_POST['address-complement']) ?? null,
                 'street' => htmlspecialchars($_POST['address-street']) ?? null,
                 'postal_code' => htmlspecialchars($_POST['address-postal_code']) ?? null,
-                'city' => htmlspecialchars($_POST['address-city']) ?? null,
-                'country' => $_POST['address-country'] ?? null,
+                'city_id' => $_POST['address-city'] ?? null,
+                'country_id' => $_POST['address-country'] ?? null,
                 'users_id' => $userID
             ];
 
@@ -99,16 +99,16 @@ class IncidentController extends Controller
             ];
 
             if (
-                empty($dataAddress['city'])
-                || empty($dataAddress['country'])
+                empty($dataAddress['city_id'])
+                || empty($dataAddress['country_id'])
                 || empty($data['title'])
                 || empty($data['type'])) {
                 $errors[] = 'Veuillez rentrez la ville, le pays, un titre et le type d\'incident';
             }
 
             $incidentInRegionExists = $this->incidentRepository->findDuplicate(
-                $dataAddress['city'],
-                $dataAddress['country'],
+                (int)$dataAddress['city_id'],
+                (int)$dataAddress['country_id'],
                 $data['title'],
                 $data['type']
             );
@@ -123,7 +123,7 @@ class IncidentController extends Controller
             }
 
             $villainID = null;
-            if (isset($_POST['incident-villain'])) {
+            if ($_POST['incident-villain'] === "Vilain Inconnu") {
                 $villainID = $_POST['incident-villain'];
             } elseif (isset($_POST['incident-villain-new'])) {
                 $villainAlias = htmlspecialchars(strtolower(trim($_POST['incident-villain-new'])), ENT_QUOTES);
@@ -136,11 +136,15 @@ class IncidentController extends Controller
                 $addressId = $this->addressRepository->create($dataAddress);
             }
 
-            $this->incidentRepository->createIncident($data, $userID, $villainID, $addressId);
-            $_SESSION['user'] += [
-                'incidentCreated' => true,
-            ];
+            $this->incidentRepository->createIncident($data, $userID, (int)$villainID, $addressId);
+            $_SESSION['incidentCreated'] = true;
+            if ($userID) {
             return $this->response->redirect('/user-dashboard');
+            }
+            else {
+                return $this->response->redirect('/incident-list');
+            }
+
         }
         return $this->view('incident-create', ['errors' => $errors]);
     }

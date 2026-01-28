@@ -16,7 +16,7 @@
         </aside>
         <section class="col-12 col-md-9 col-lg-10 p-4">
 
-            <h3>Incident #<?= $incident['id'] ?> : <?= $incident['titre'] ?></h3>
+            <h3>Incident #<?= $recentIncident['id'] ?> : <?= $recentIncident['titre'] ?></h3>
             <p class="text-muted">Accueil > Mes Incidents > Détails</p>
 
             <div class="row g-3 mb-4">
@@ -25,8 +25,8 @@
                     <div class="card h-100">
                         <div class="card-header">Détails</div>
                         <div class="card-body">
-                            <p><strong>Description :</strong><br><?= $incident['description'] ?></p>
-                            <p><strong>Lieu :</strong><br><?= $incident['lieu'] ?></p>
+                            <p><strong>Description :</strong><br><?= $recentIncident['description'] ?></p>
+                            <p><strong>Lieu :</strong><br><?= $recentIncident['lieu'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="card h-100">
                         <div class="card-header">Statut actuel</div>
                         <div class="card-body">
-                            <p><?= $incident['statut'] ?></p>
+                            <p><?= $recentIncident['statut'] ?></p>
                         </div>
                     </div>
                 </div>

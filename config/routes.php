@@ -10,6 +10,7 @@ use App\Controllers\{AdminController,
     MovieController,
     NewsletterController,
     RegisterController,
+    UserController,
     VillainController};
 use App\Core\Router;
 
@@ -67,6 +68,9 @@ return function (Router $router) {
     $router->get('/register-confirmation', [RegisterController::class, 'showRegisterConfirmation']);
 
     //USERCONTROLLER
+    $router->get('/user-profile', [UserController::class, 'showUserProfile']);
+    $router->get('/user-profile-edit', [UserController::class, 'showUserProfileEdit']);
+    $router->post('/user-profile-edit', [UserController::class, 'editUserProfile']);
 
     //VILLAINCONTROLLER
     $router->get('/villains-list', [VillainController::class, 'showVillainList']);

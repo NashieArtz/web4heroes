@@ -56,7 +56,9 @@ final class Container
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
                 new AddressRepository($this->pdo),
-                new Response()
+                new Response(),
+                new IncidentRepository($this->pdo),
+                new VillainRepository($this->pdo),
             ),
 
             ExceptionsController::class => new ExceptionsController(
@@ -98,6 +100,7 @@ final class Container
             UserController::class => new UserController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new Response(),
             ),
 
             VillainController::class => new VillainController(
