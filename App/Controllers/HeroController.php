@@ -28,6 +28,12 @@ class HeroController extends Controller
         ]);
     }
 
+    public function showHeroProfile(): Response {
+        return $this->view('hero-profile', [
+            'title' => '<i<i'
+        ]);
+    }
+
 
 
 }

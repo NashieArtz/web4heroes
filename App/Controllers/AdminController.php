@@ -12,11 +12,14 @@ class AdminController extends Controller
     private UserRepository $userRepository;
     private Response $response;
 
-    public function __construct(Request $request, UserRepository $userRepository)
+    public function __construct(Request $request, UserRepository $userRepository, Response $response)
     {
         parent::__construct($request);
         $this->userRepository = $userRepository;
-        $this->response = new Response();
+        $this->response = $response;
+        if ($_SESSION['user']['role'] !== 'admin') {
+            $this->redirect('/');
+        }
 
     }
 
