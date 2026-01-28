@@ -41,7 +41,8 @@ final class Container
         return match ($class) {
             AdminController::class => new AdminController(
                 $request,
-                new UserRepository($this->pdo, $this->addressRepository)
+                new UserRepository($this->pdo, $this->addressRepository),
+                new Response()
             ),
 
             AuthController::class => new AuthController(
@@ -53,7 +54,9 @@ final class Container
 
             DashboardController::class => new DashboardController(
                 $request,
-                new UserRepository($this->pdo, $this->addressRepository)
+                new UserRepository($this->pdo, $this->addressRepository),
+                new AddressRepository($this->pdo),
+                new Response()
             ),
 
             ExceptionsController::class => new ExceptionsController(

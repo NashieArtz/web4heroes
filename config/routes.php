@@ -45,6 +45,7 @@ return function (Router $router) {
     //HEROCONTROLLER
     $router->get('/heroes-list', [HeroController::class, 'showHeroesList']);
     $router->get('/hero-reputation', [HeroController::class, 'showHeroReputation']);
+    $router->get('/hero-profile', [HeroController::class, 'showHeroProfile']);
 
     //INCIDENTCONTROLLER
     $router->get('/incident-list', [IncidentController::class, 'showIncidents']);

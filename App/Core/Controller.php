@@ -21,4 +21,13 @@ abstract class Controller
         return new Response('', $status, ['Location' => $to]);
     }
 
+    protected function roleCheck(string $role): string {
+        return match ($role) {
+            'admin' => 'admin',
+            'user' => 'user',
+            'hero' => 'hero',
+            default => null
+        };
+    }
+
 }

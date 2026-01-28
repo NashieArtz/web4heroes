@@ -1,4 +1,4 @@
-<h1>User Dashboard</h1>
+<h1>User Dashboard <?=$userFirstName?></h1>
 
 <a href="incident-create">
     Déclarer un incident
