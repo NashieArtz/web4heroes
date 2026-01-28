@@ -101,6 +101,8 @@ final class Container
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
                 new Response(),
+                new CityRepository($this->pdo),
+                new AddressRepository($this->pdo),
             ),
 
             VillainController::class => new VillainController(

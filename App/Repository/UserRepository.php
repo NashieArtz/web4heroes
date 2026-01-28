@@ -148,28 +148,33 @@ final class UserRepository
      * @param array $data
      * @return int
      */
-    public function updateUser(int $userID, array $data): int
+    public function updateUser(int $userID, array $data): bool
     {
         try {
-            $stmt = $this->pdo->prepare('UPDATE `users` SET `username` = :username, `email` = :email, `pwd` = :pwd,
-                   `lastname` = :lastname, `firstname` = :firstname, `gender` = :gender, `birthdate` = :birthdate,
-                   `phone` = :phone WHERE id = :id');
-            $stmt->execute([
-                ':username' => $data['username'],
-                ':email' => $data['email'],
-                ':pwd' => $data['pwd'],
-                ':lastname' => $data['lastname'],
+            $stmt = $this->pdo->prepare('UPDATE `users` SET
+                   `username` = :username,
+                   `email` = :email,
+                   `pwd` = :pwd,
+                   `lastname` = :lastname,
+                   `firstname` = :firstname,
+                   `gender` = :gender,
+                   `birthdate` = :birthdate,
+                   `phone` = :phone
+               WHERE id = :id');
+            return $stmt->execute([
+                ':username'  => $data['username'],
+                ':email'     => $data['email'],
+                ':pwd'       => $data['pwd'],
+                ':lastname'  => $data['lastname'],
                 ':firstname' => $data['firstname'],
-                ':gender' => $data['gender'],
+                ':gender'    => $data['gender'],
                 ':birthdate' => $data['birthdate'],
-                ':phone' => $data['phone'],
-                ':id' => $userID,
+                ':phone'     => $data['phone'],
+                ':id'        => $userID,
             ]);
-            return $isUpdated = 1;
         } catch (PDOException $e) {
-            return $isUpdated;
+            return false;
         }
-
     }
 
     /**

@@ -9,17 +9,9 @@
     <title><?=$title?></title>
 </head>
 <body>
-
-<!-- TODO: Logic for header/footer-<=role?> -->
-
 <?php
 
-var_dump($_SESSION);
-?>
-<form action="/logout" method="POST">
-    <button type="submit">Déconnecter</button>
-</form>
-<?php
+
 if(isset($_SESSION['user']) && is_array($_SESSION['user'])) {
     $role = $_SESSION['user']['role'] ?? null;
     if ($role == 'admin') {
@@ -39,6 +31,9 @@ else include 'views/includes/header-default.php';
     include $viewFile;
     ?>
 </main>
+<?php
+
+?>
 
 <?php include "includes/footer-default.php"; ?>
 

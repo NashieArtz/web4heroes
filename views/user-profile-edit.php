@@ -2,45 +2,59 @@
     <h2>Modifier mon profil</h2>
     <hr>
 
+
+
     <form action="/user-profile-edit" method="POST">
-        <div class="form-group">
-            <label>Nom utilisation</label>
-            <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($user['username'] ?? '') ?>">
-        </div>
+        <?php if ($userRole === 'hero'): ?>
+            <div class="form-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" name="username" class="form-control"
+                       value="<?= htmlspecialchars($userInfo['username'] ?? '') ?>" placeholder="<?=$userInfo['username']?>">
+            </div>
+        <?php endif; ?>
 
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label>Prénom</label>
-                <input type="text" name="firstname" class="form-control" value="<?= htmlspecialchars($user['firstname'] ?? '') ?>" required>
+                <input type="text" name="firstname" class="form-control"
+                       value="<?= htmlspecialchars($userInfo['firstname'] ?? '') ?>"
+                       placeholder="<?=$userInfo['firstname']?>" required>
             </div>
             <div class="col-sm-6 form-group">
                 <label>Nom</label>
-                <input type="text" name="lastname" class="form-control" value="<?= htmlspecialchars($user['lastname'] ?? '') ?>" required>
+                <input type="text" name="lastname" class="form-control"
+                       value="<?= htmlspecialchars($userInfo['lastname'] ?? '') ?>"
+                       placeholder="<?=$userInfo['lastname']?>" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email'] ?? '') ?>" required>
+            <label>Email (Modification soumise à validation admin)</label>
+
+            <input type="email" name="email" class="form-control"
+                   value="<?= htmlspecialchars($userInfo['email']) ?>" readonly>
+            <small class="text-muted">Contactez le support pour changer votre adresse mail.</small>
         </div>
 
         <div class="form-group">
             <label>Téléphone</label>
-            <input type="text" name="phone" class="form-control" value="<?= htmlspecialchars($user['phone'] ?? '') ?>">
+            <input type="text" name="phone" class="form-control"
+                   value="<?= htmlspecialchars($userInfo['phone'] ?? '') ?>"
+                   placeholder="<?=$userInfo['phone']?>">
         </div>
 
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label>Genre</label>
                 <select name="gender" class="form-control">
-                    <option value="Male" <?= ($user['gender'] ?? '') === 'Male' ? 'selected' : '' ?>>Homme</option>
-                    <option value="Female" <?= ($user['gender'] ?? '') === 'Female' ? 'selected' : '' ?>>Femme</option>
-                    <option value="Other" <?= ($user['gender'] ?? '') === 'Other' ? 'selected' : '' ?>>Autre</option>
+                    <option value="Male" <?= ($userInfo['gender'] ?? '') === 'Male' ? 'selected' : '' ?>>Homme</option>
+                    <option value="Female" <?= ($userInfo['gender'] ?? '') === 'Female' ? 'selected' : '' ?>>Femme</option>
+                    <option value="Other" <?= ($userInfo['gender'] ?? '') === 'Other' ? 'selected' : '' ?>>Autre</option>
                 </select>
             </div>
             <div class="col-sm-6 form-group">
                 <label>Date de naissance</label>
-                <input type="date" name="birthdate" class="form-control" value="<?= $user['birthdate'] ?? '' ?>">
+                <input type="date" name="birthdate" class="form-control" value="<?= $userInfo['birthdate'] ?? '' ?>">
             </div>
         </div>
 
@@ -48,11 +62,15 @@
         <div class="row">
             <div class="col-xs-3 form-group">
                 <label>N°</label>
-                <input type="text" name="address-number" class="form-control" value="<?= htmlspecialchars($address['number'] ?? '') ?>">
+                <input type="text" name="address-number" class="form-control"
+                       value="<?= htmlspecialchars($address['number'] ?? '') ?>"
+                       placeholder="<?=$address['number'] ?? ''?>">
             </div>
             <div class="col-xs-9 form-group">
                 <label>Rue</label>
-                <input type="text" name="address-street" class="form-control" value="<?= htmlspecialchars($address['street'] ?? '') ?>">
+                <input type="text" name="address-street" class="form-control"
+                       value="<?= htmlspecialchars($address['street'] ?? '') ?>"
+                       placeholder="<?=$address['street'] ?? ''?>">
             </div>
         </div>
 
@@ -69,7 +87,7 @@
 
         <div class="text-center" style="margin-top: 30px; margin-bottom: 50px;">
             <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
-            <a href="/profile" class="btn btn-default">Annuler</a>
+            <a href="/user-profile" class="btn btn-default">Annuler</a>
         </div>
     </form>
 </div>
