@@ -120,4 +120,3 @@ php -S localhost:8000 -t public
 
 *Projet réalisé dans le cadre de la formation développement web de la NFS - Janvier 2026.*
 
-```
