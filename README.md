@@ -1,5 +1,5 @@
 
-# 🦸‍♂️ Heros-SOS (Web4Heroes)
+#  Heros-SOS (Web4Heroes)
 
 > **"Votre Sécurité, Notre Mission."**
 
@@ -9,21 +9,21 @@ Ce projet a été développé "from scratch" avec une architecture **MVC (Modèl
 
 ---
 
-## 📋 Fonctionnalités
+## Fonctionnalités
 
 Le projet respecte les spécifications du cahier des charges officiel :
 
-### 👤 Espace Citoyen
+### Espace Citoyen
 * **Signalement d'incidents** : Formulaire géolocalisé pour déclarer des menaces en temps réel.
 * **Suivi des dossiers** : Tableau de bord personnel pour voir l'état des incidents (Signalé, En cours, Résolu).
 * **Interaction** : Possibilité de noter les super-héros et de commenter leurs interventions.
 
-### 🦸 Espace Super-Héros
+### Espace Super-Héros
 * **Profil Public** : Page de profil personnalisable affichant la réputation, les statistiques et l'identité secrète (optionnelle).
 * **Vidéothèque** : Gestion d'une liste de films favoris visible sur le profil (CRUD complet).
 * **Gestion d'Intervention** : Prise en charge des incidents assignés.
 
-### 🛡️ Espace Administrateur (Modération)
+### Espace Administrateur (Modération)
 * **Tableau de Bord (KPIs)** : Vue d'ensemble des statistiques (Utilisateurs, Incidents actifs, Héros en attente).
 * **Validation des Héros** : Workflow de validation pour les nouveaux comptes "Super-héros".
 * **Gestion de Contenu** : Modération des commentaires, des incidents et des films ajoutés.
@@ -57,7 +57,7 @@ web4heroes/
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### 1. Cloner le projet
 
@@ -110,7 +110,7 @@ php -S localhost:8000 -t public
 
 ---
 
-## 👤 Auteurs
+## Auteurs
 
 **Ange Wu**
 
