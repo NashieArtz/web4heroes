@@ -31,7 +31,7 @@ Le projet respecte les spécifications du cahier des charges officiel :
 
 ---
 
-## 🛠️ Stack Technique
+## Stack Technique
 
 * **Langage** : PHP 8.2+ (Typage strict activé `declare(strict_types=1);`).
 * **Architecture** : MVC Custom (Router, Controller, Repository Pattern).
