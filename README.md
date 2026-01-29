@@ -1,5 +1,5 @@
 
-#  Heros-SOS (Web4Heroes)
+# Heros-SOS (Web4Heroes)
 
 > **"Votre Sécurité, Notre Mission."**
 
@@ -110,18 +110,13 @@ php -S localhost:8000 -t public
 
 ---
 
-## Auteurs
+## Auteur
 
-**Ange Wu**
+**NashieArtz**
 
 * Développeur Lead & Architecture MVC
-
-**Fallou Thiaw**
-
-* Développeuse Front
 
 ---
 
 *Projet réalisé dans le cadre de la formation développement web de la NFS - Janvier 2026.*
 
-```
