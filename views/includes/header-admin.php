@@ -38,9 +38,14 @@
                 </li>
 
             </ul>
-            <div class="d-flex gap-2">
-                <form action="/logout" method="POST">
-                    <button type="submit">Déconnecter</button>
+            <div class="d-flex gap-2 align-items-center">
+                <a href="/admin-dashboard" class="btn btn-outline-light">
+                    Mon espace
+                </a>
+                <form action="/logout" method="POST" class="d-inline-block mb-0">
+                    <button type="submit" class="btn-login" style="padding: 8px 20px;">
+                        Déconnecter <i class="glyphicon glyphicon-log-out"></i>
+                    </button>
                 </form>
             </div>
 

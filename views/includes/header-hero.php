@@ -31,6 +31,7 @@
                         Rechercher
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="incident-list">Liste des incidents</a></li>
                         <li><a class="dropdown-item" href="heroes-list">Liste de héros</a></li>
                         <li><a class="dropdown-item" href="villains-list">Liste des villains</a></li>
                         <li><a class="dropdown-item" href="movies-list">Liste des films</a></li>
@@ -42,8 +43,10 @@
                 <a href="hero-dashboard" class="btn btn-outline-light">
                     Mon espace
                 </a>
-                <form action="/logout" method="POST">
-                    <button type="submit">Déconnecter</button>
+                <form action="/logout" method="POST" class="d-inline-block mb-0">
+                    <button type="submit" class="btn-login" style="padding: 8px 20px;">
+                        Déconnecter <i class="glyphicon glyphicon-log-out"></i>
+                    </button>
                 </form>
             </div>
 

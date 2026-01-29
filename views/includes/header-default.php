@@ -26,6 +26,7 @@
                         Rechercher
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="incident-list">Liste des incidents</a></li>
                         <li><a class="dropdown-item" href="heroes-list">Liste de héros</a></li>
                         <li><a class="dropdown-item" href="villains-list">Liste des villains</a></li>
                         <li><a class="dropdown-item" href="movies-list">Liste des films</a></li>
@@ -37,7 +38,7 @@
                 <a href="login" class="btn btn-outline-light">
                     Connexion
                 </a>
-                <a href="register" class="btn btn-primary">
+                <a href="/register" class="btn btn-outline-light">
                     Inscription
                 </a>
             </div>

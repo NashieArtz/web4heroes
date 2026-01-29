@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Jan 27, 2026 at 09:03 PM
+-- Generation Time: Jan 28, 2026 at 12:41 PM
 -- Server version: 10.6.12-MariaDB-1:10.6.12+maria~ubu2004
 -- PHP Version: 8.1.14
 
@@ -180,10 +180,11 @@ CREATE TABLE `intervention` (
 
 CREATE TABLE `movies` (
   `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `description` text NOT NULL,
-  `imdb_path` varchar(255) NOT NULL,
-  `poster_path` varchar(255) NOT NULL
+  `title` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `imdb_path` varchar(255) DEFAULT NULL,
+  `poster_path` varchar(255) DEFAULT NULL,
+  `category` enum('Action','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','History','Horror','Music','Mystery','Romance','Sci-Fi','Thriller','War','Western') DEFAULT 'Action'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -269,7 +270,8 @@ INSERT INTO `users` (`id`, `email`, `pwd`, `username`, `lastname`, `firstname`, 
 (9, 'barry.allen@ccpd.gov', '$2y$10$fFF9y423QhyCNzgf.Ysoe.ubR/guHDo3hLwHI.aZEjuGZ1yy2CN7m', NULL, 'Allen', 'Barry', 'Male', '1992-03-14', '555-0109', NULL, NULL, 'user'),
 (10, 'arthur.curry@atlantis.com', '$2y$10$fFF9y423QhyCNzgf.Ysoe.ubR/guHDo3hLwHI.aZEjuGZ1yy2CN7m', NULL, 'Curry', 'Arthur', 'Male', '1986-01-29', '555-0110', NULL, NULL, 'user'),
 (11, 'diana.prince@themyscira.gov', '$2y$10$fFF9y423QhyCNzgf.Ysoe.ubR/guHDo3hLwHI.aZEjuGZ1yy2CN7m', NULL, 'Prince', 'Diana', 'Female', '1918-03-22', '555-0103', NULL, NULL, 'user'),
-(12, 'peter.parker@dailybugle.com', '$2y$10$fFF9y423QhyCNzgf.Ysoe.ubR/guHDo3hLwHI.aZEjuGZ1yy2CN7m', NULL, 'Parker', 'Peter', 'Male', '2001-08-10', '555-0104', NULL, NULL, 'hero');
+(12, 'peter.parker@dailybugle.com', '$2y$10$fFF9y423QhyCNzgf.Ysoe.ubR/guHDo3hLwHI.aZEjuGZ1yy2CN7m', NULL, 'Parker', 'Peter', 'Male', '2001-08-10', '555-0104', NULL, NULL, 'hero'),
+(13, 'test2@test2.com', '$2y$10$OmQwtan0tnXpvaXgBSip5O.HhVwJFbaVyWqrytkd89NnaC4V0A2/q', NULL, 'test2', 'test2', 'Other', '0002-02-02', '02020202', NULL, NULL, 'user');
 
 -- --------------------------------------------------------
 
@@ -465,7 +467,7 @@ ALTER TABLE `speciality`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `villain_profile`

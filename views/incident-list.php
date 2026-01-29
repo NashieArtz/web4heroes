@@ -1,14 +1,12 @@
 <section class="py-4">
     <div class="container">
 
-        <h2 class="mb-4 text-center">Liste des incidents</h2>
+        <h2 class="mb-4 text-center">Liste des incidents à Rouen</h2>
+
         <form method="get" class="card mb-4 shadow-sm">
             <div class="card-body">
-
-                <h5 class="mb-3">Filtres</h5>
-
+                <h5 class="mb-3">Filtres de recherche</h5>
                 <div class="row g-3 align-items-end">
-
                     <div class="col-12 col-md-3">
                         <label class="form-label">Statut</label>
                         <select name="statut" class="form-select">
@@ -31,11 +29,7 @@
 
                     <div class="col-12 col-md-4">
                         <label class="form-label">Recherche</label>
-                        <input
-                                type="text"
-                                name="search"
-                                class="form-control"
-                                placeholder="Rechercher...">
+                        <input type="text" name="search" class="form-control" placeholder="Rechercher un incident...">
                     </div>
 
                     <div class="col-12 col-md-2 d-grid">
@@ -43,14 +37,12 @@
                             Filtrer
                         </button>
                     </div>
-
                 </div>
-
             </div>
         </form>
+
         <div class="table-responsive">
             <table class="table table-striped table-hover align-middle">
-
                 <thead class="table-dark">
                 <tr>
                     <th>ID</th>
@@ -63,41 +55,46 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-
                 <tbody>
-                <?php foreach ($incidents as $incident): ?>
+                <?php if (!empty($incidents)): ?>
+                    <?php foreach ($incidents as $incident): ?>
+                        <tr>
+                            <td><?= $incident['id'] ?></td>
+                            <td><?= $typeTranslations[$incident['type']] ?? $incident['type'] ?></td>
+                            <td><?= $incident['city_name'] ?? 'Lieu inconnu' ?></td>
+                            <td><?= ($incident['firstname'] ?? 'Anonyme') . ' ' . ($incident['lastname'] ?? '') ?></td>
+                            <td><?= date('d/m/y à H:i', strtotime($incident['date'])) ?></td>
+                            <td>
+                                <?php
+                                $prioClass = match($incident['priority']) {
+                                    'High' => 'bg-danger',
+                                    'Mid' => 'bg-warning text-dark',
+                                    default => 'bg-secondary'
+                                };
+                                ?>
+                                <span class="badge <?= $prioClass ?>"><?= $incident['priority'] ?></span>
+                            </td>
+                            <td>
+                                <?php
+                                $statusClass = match($incident['status']) {
+                                    'Resolved' => 'bg-success',
+                                    'In progress' => 'bg-primary',
+                                    default => 'bg-info text-dark'
+                                };
+                                ?>
+                                <span class="badge <?= $statusClass ?>"><?= $incident['status'] ?></span>
+                            </td>
+                            <td>
+                                <a href="/incident-detail?id=<?= $incident['id'] ?>" class="btn btn-sm btn-outline-primary">Voir</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td><?= $incident[0] ?></td>
-                        <td><?= $incident[1] ?></td>
-                        <td><?= $incident[2] ?></td>
-                        <td><?= $incident[3] ?></td>
-                        <td><?= $incident[4] ?></td>
-
-                        <td>
-                            <span class="badge
-                                <?= $incident[5] === 'Haute' ? 'bg-danger' :
-                                    ($incident[5] === 'Normale' ? 'bg-warning text-dark' : 'bg-secondary') ?>">
-                                <?= $incident[5] ?>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="badge
-                                <?= $incident[6] === 'Résolu' ? 'bg-success' :
-                                    ($incident[6] === 'En cours' ? 'bg-primary' : 'bg-info text-dark') ?>">
-                                <?= $incident[6] ?>
-                            </span>
-                        </td>
-
-                        <td>
-                            <a href="incident-detail.php?id=<?= $incident[0] ?>"
-                               class="btn btn-sm btn-outline-primary">
-                                Voir
-                            </a>
-                        </td>
+                        <td colspan="8" class="text-center text-muted">Aucun incident enregistré.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
                 </tbody>
-
             </table>
         </div>
     </div>

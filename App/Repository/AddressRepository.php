@@ -63,7 +63,7 @@ VALUES (:number, :complement, :street, :postal_code, :city_id, :country_id, :use
 
 
 
-    public function updateByUser(int $id, array $data): bool
+    public function updateByUser(int $userId, array $data): bool
     {
         $stmt = $this->pdo->prepare("
             UPDATE address
@@ -73,10 +73,10 @@ VALUES (:number, :complement, :street, :postal_code, :city_id, :country_id, :use
                 postal_code = :postal_code,
                 city_id = :city_id,
                 country_id = :country_id
-            WHERE id = :id
+            WHERE users_id = :userId
         ");
         $stmt->execute([
-            ':id' => $id,
+            ':userId' => $userId,
             ':number' => $data['number'],
             ':complement' => $data['complement'],
             ':street' => $data['street'],

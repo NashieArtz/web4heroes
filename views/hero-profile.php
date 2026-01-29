@@ -1,260 +1,77 @@
-<div >
-    <div >
-        <div>
-            <div >
-                <img src="<?= $hero['hero_path'] ?? '' ?>"
-                     alt="Avatar">
+<div class="container" style="margin-top: 30px;">
+
+    <div class="well" style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 text-center">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Batman"
+                     alt="Avatar"
+                     class="img-circle img-thumbnail"
+                     style="width: 150px; height: 150px; object-fit: cover;">
             </div>
-            <div >
-                <div >
-                    <div>
-                        <h1 ><?= htmlspecialchars($hero['hero_name'] ?? 'Héros') ?></h1>
-                        <p >
-                            <i ></i>
-                            <?= htmlspecialchars($hero['firstname'] ?? '-') ?>
-                            <?= htmlspecialchars($hero['lastname'] ?? '-') ?>
-                        </p>
-                        <p >
-                            <i ></i>
-                            <?= htmlspecialchars($hero['email'] ?? '-') ?>
-                        </p>
-                    </div>
-                    <a href="/edit-profile" >
-                        <i></i> Personnaliser
-                    </a>
+            <div class="col-md-9 col-sm-8">
+                <div class="pull-right">
+                    <span class="label label-success" style="font-size: 12px;">Héros Actif</span>
                 </div>
-                <?php if (($hero['is_active'] ?? 0) == 1): ?>
-                    <span >Héros actif</span>
-                <?php else: ?>
-                    <span > En attente de validation</span>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-    <div >
-        <div >
-            <div >
-                <small >Incidents gérés</small>
-                <h3><?= (int)($statut['incidents'] ?? 0) ?></h3>
-            </div>
-        </div>
-        <div >
-            <div >
-                <small >Interventions réussies</small>
-                <h3 ><?= (int)($statut['success'] ?? 0) ?></h3>
-            </div>
-        </div>
-        <div >
-            <div >
-                <small >Note citoyenne</small>
-                <h3><?= $statut['rating'] ?? '—' ?>/5 <i ></i></h3>
-            </div>
-        </div>
-    </div>
-    <ul >
-        <li  role="presentation">
-            <button  id="profile-tab" type="button" role="tab">
-                <i></i> Mon Profil
-            </button>
-        </li>
-        <li  role="presentation">
-            <button  type="button" role="tab">
-                <i ></i> Incidents
-            </button>
-        </li>
-        <li  role="presentation">
-            <button  type="button" role="tab">
-                <i class="bi bi-film"></i> Ma Vidéothèque
-            </button>
-        </li>
-    </ul>
-    <div >
-        <div>
-            <h3 ><i></i> Paramètres du Profil</h3>
+                <h2 style="margin-top: 0;">Batman <small>(Bruce Wayne)</small></h2>
+                <p class="lead" style="font-size: 16px; color: #666;">
+                    <em>"La nuit est plus sombre juste avant l'aube. Et je vous le promets, l'aube approche."</em>
+                </p>
+                <hr style="margin: 10px 0;">
+                <p><span class="glyphicon glyphicon-envelope"></span> bruce.wayne@waynecorp.com</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span> Gotham City / Rouen District</p>
 
-            <div >
-                <div>
-                    <div>
-                        <div>
-                            <i></i> Super-Pouvoir
-                        </div>
-                        <div>
-                            <p><?= htmlspecialchars($hero['power'] ?? 'Non précisée') ?></p>
-                            <a href="/edit-profile" >Modifier</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div >
-                    <div >
-                        <div>
-                            <i ></i> Description
-                        </div>
-                        <div >
-                            <?php if (!empty($hero['description'])): ?>
-                                <p><?= nl2br(htmlspecialchars($hero['description'])) ?></p>
-                            <?php else: ?>
-                                <p>Aucune description fournie</p>
-                            <?php endif; ?>
-                            <a href="/edit-profile" >Modifier</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div >
-                <i ></i>
-                <strong>Conseil :</strong> Mettez à jour votre profil régulièrement pour que les citoyens puissent vous connaître et vous faire confiance.
-            </div>
-
-            <a href="edit-profile" >
-                <i ></i> Personnaliser Complètement Mon Profil
-            </a>
-        </div>
-        <div  role="tabpanel">
-            <h3 ><i ></i> Mes Incidents</h3>
-
-            <div>
-                <a href="incident-declaration" >
-                    <i ></i> Signaler un nouvel incident
+                <a href="/hero-profile" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-edit"></span> Modifier les infos publiques
                 </a>
             </div>
-            <?php if (!empty($incidents)): ?>
-                <div>
-                    <?php foreach ($incidents as $incident): ?>
-                        <div>
-                            <div>
-                                <div>
-                                    <div>
-                                        <h5><?= htmlspecialchars($incident['title'] ?? 'Incident') ?></h5>
-                                        <?php
-                                        $statusClass = match($incident['status'] ?? 'pending') {
-                                            'success' => 'bg-success',
-                                            'in_progress' => 'bg-info',
-                                            'failed' => 'bg-danger',
-                                            default => 'bg-secondary'
-                                        };
-                                        $statusLabel = match($incident['status'] ?? 'pending') {
-                                            'success' => '✓ Réussi',
-                                            'in_progress' => '⟳ En cours',
-                                            'failed' => '✗ Échoué',
-                                            default => '⏳ En attente'
-                                        };
-                                        ?>
-                                        <span <?= $statusClass ?>><?= $statusLabel ?></span>
-                                    </div>
-                                    <p><?= htmlspecialchars(substr($incident['description'] ?? '', 0, 100)) ?>...</p>
-
-                                    <div>
-                                        <small >
-                                            <i ></i>
-                                            <?= date('d/m/Y H:i', strtotime($incident['created_at'] ?? 'now')) ?>
-                                        </small>
-                                    </div>
-
-                                    <?php if (($incident['status'] ?? 'pending') !== 'success' && ($incident['status'] ?? 'pending') !== 'failed'): ?>
-                                        <div  role="group">
-                                            <a href="/incident/<?= $incident['id'] ?>">
-                                                <i ></i > Détails
-                                            </a>
-                                            <button <?= $incident['id'] ?>>
-                                                <i ></i> Intervenir
-                                            </button>
-                                        </div>
-                                    <?php else: ?>
-                                        <a href="/incident/<?= $incident['id'] ?>">
-                                            <i ></i> Voir Détails
-                                        </a>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div<?= $incident['id'] ?>>
-                            <div>
-                                <div >
-                                    <div>
-                                        <h5 >Intervenir sur l'incident</h5>
-                                        <button type="button" ></button>
-                                    </div>
-                                    <form method="POST" action="/intervene">
-                                        <div class="modal-body">
-                                            <input type="hidden" name="incident_id" value="<?= $incident['id'] ?>">
-                                            <div >
-                                                <label >État de l'intervention</label>
-                                                <select class="form-select" name="status" required>
-                                                    <option value="">-- Choisir --</option>
-                                                    <option value="in_progress">En cours</option>
-                                                    <option value="success">Réussi</option>
-                                                    <option value="failed">Échoué</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label class="form-label">Commentaire (optionnel)</label>
-                                                <textarea  name="comment" rows="3" placeholder="Décrivez votre intervention..."></textarea>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <button type="button">Annuler</button>
-                                            <button type="submit">Confirmer l'intervention</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div>
-                    <i></i>
-                    <p >Aucun incident actuellement. Les citoyens peuvent vous en signaler un.</p>
-                </div>
-            <?php endif; ?>
-        </div>
-        <div>
-            <h3 ><i></i> Ma Vidéothèque</h3>
-
-            <div>
-                <a href="/add-film" >
-                    <i></i> Ajouter un film
-                </a>
-            </div>
-            <?php if (!empty($filmography)): ?>
-                <div>
-                    <?php foreach ($filmography as $film): ?>
-                        <div>
-                            <div >
-                                <img src="<?= $film['poster_url'] ?? '' ?>"
-                                     alt="<?= htmlspecialchars($film['title']) ?>"
-                                     >
-                                <div >
-                                    <h5 ><?= htmlspecialchars($film['title']) ?></h5>
-                                    <p ><?= htmlspecialchars($film['year'] ?? 'Année inconnue') ?></p>
-                                    <p ><?= htmlspecialchars(substr($film['description'] ?? '', 0, 80)) ?>...</p>
-                                    <div >
-                                        <a href="/film/<?= $film['id'] ?>">
-                                            <i ></i> Voir
-                                        </a>
-                                        <a href="/edit-film/<?= $film['id'] ?>">
-                                            <i></i> Éditer
-                                        </a>
-                                        <a href="/delete-film/<?= $film['id'] ?>" onclick="return confirm('Supprimer ce film ?')">
-                                            <i class="bi bi-trash"></i> Supprimer
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div>
-                    <i></i>
-                    <p class="mb-3">Votre vidéothèque est vide. Ajoutez des films qui vous mettent en vedette !</p>
-                    <a href="/add-film">
-                        <i ></i> Ajouter mon premier film
-                    </a>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
-</div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">Incidents gérés</div>
+                <div class="panel-body"><h3>42</h3></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-success text-center">
+                <div class="panel-heading">Interventions réussies</div>
+                <div class="panel-body"><h3>38</h3></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-warning text-center">
+                <div class="panel-heading">Note Citoyenne</div>
+                <div class="panel-body"><h3>4.8 / 5</h3></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-tabs-custom" style="margin-top: 20px;">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active col-sm-4"><a href="/user-profile" data-toggle="tab">Configuration</a></li>
+            <li class="col-sm-4"><a href="/incident-list" data-toggle="tab">Journal d'interventions</a></li>
+            <li class="col-sm-4"><a href="/movies-list" data-toggle="tab">Vidéothèque</a></li>
+        </ul>
+
+        <div class="tab-content" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-top: none;">
+
+            <div class="tab-pane active" id="profile">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Super-Pouvoir</h4>
+                        <div class="well well-sm">Détecteur de mensonges humain & Gadgets</div>
+
+                        <h4>Description</h4>
+                        <p class="text-justify">Expert en infiltration et en combat tactique. Utilise la peur comme outil de dissuasion contre le crime organisé.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-warning">
+                            <strong>Statut :</strong> Votre compte est sous surveillance admin suite au dernier incident.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane"

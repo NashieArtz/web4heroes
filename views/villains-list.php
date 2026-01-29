@@ -6,7 +6,7 @@
                 <p class="lead" style="opacity: 0.9;">Consultez la liste des menaces identifiées et signalez les suspects</p>
             </div>
             <div class="col-sm-4 hidden-xs text-center">
-                <i class="glyphicon glyphicon-list" style="font-size: 60px;"></i>
+                <i class="glyphicon glyphicon-warning-sign" style="font-size: 60px;"></i>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
                 <div class="input-group" style="width: 100%;">
                     <input type="text" name="search" class="form-control"
                            placeholder="Rechercher par nom, email ou pouvoir..."
-                           value="<?php echo htmlspecialchars($search); ?>">
+                           value="">
                     <span class="input-group-btn">
                         <button type="submit" class="btn btn-primary">
                             <i class="glyphicon glyphicon-search"></i> Rechercher
@@ -30,13 +30,13 @@
         </div>
         <div class="col-md-5 col-sm-12">
             <form method="GET">
-                <select name="filter" class="form-control" onchange="this.form.submit()">
+                <select name="filter" class="form-control">
                     <option value="">Tous les pouvoirs</option>
-                    <option value="fire" <?php echo $filter === 'fire' ? 'selected' : ''; ?>>Force du feu</option>
-                    <option value="water" <?php echo $filter === 'water' ? 'selected' : ''; ?>>Force de l'eau</option>
-                    <option value="light" <?php echo $filter === 'light' ? 'selected' : ''; ?>>Force de lumière</option>
-                    <option value="dark" <?php echo $filter === 'dark' ? 'selected' : ''; ?>>Force du noire</option>
-                    <option value="sand" <?php echo $filter === 'sand' ? 'selected' : ''; ?>>Force du sable</option>
+                    <option value="fire">Force du feu</option>
+                    <option value="water">Force de l'eau</option>
+                    <option value="light">Force de lumière</option>
+                    <option value="dark">Force du noire</option>
+                    <option value="sand">Force du sable</option>
                 </select>
             </form>
         </div>
@@ -46,41 +46,54 @@
         <div class="col-xs-12">
             <p class="text-muted">
                 <i class="glyphicon glyphicon-info-sign"></i>
-                <strong><?php echo count($filtered_villains); ?></strong> villain(s) trouvé(s)
+                <strong>3</strong> villain(s) trouvé(s)
             </p>
         </div>
     </div>
 
     <div class="row">
-        <?php if (count($filtered_villains) > 0): ?>
-            <?php foreach ($filtered_villains as $villain): ?>
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px;">
-                    <div class="thumbnail text-center" style="border: 2px solid #a94442; padding: 20px; min-height: 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                        <div style="margin-bottom: 15px;">
-                            <i class="glyphicon glyphicon-user" style="font-size: 40px; color: #a94442;"></i>
-                        </div>
-                        <div class="caption">
-                            <h4 style="font-weight: bold;"><?php echo htmlspecialchars($villain['name']); ?></h4>
-                            <p><span class="label label-warning" style="font-size: 12px;"><?php echo htmlspecialchars($villain['power']); ?></span></p>
-                            <p class="small text-muted" style="word-wrap: break-word;">
-                                <i class="glyphicon glyphicon-envelope"></i> <?php echo htmlspecialchars($villain['email']); ?>
-                            </p>
-                            <button class="btn btn-danger btn-block"
-                                    onclick="setVillainData('<?php echo htmlspecialchars($villain['name']); ?>', '<?php echo $villain['id']; ?>')"
-                                    data-toggle="modal"
-                                    data-target="#reportModal">
-                                <i class="glyphicon glyphicon-flag"></i> Signaler
-                            </button>
-                        </div>
-                    </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px;">
+            <div class="thumbnail text-center" style="border: 2px solid #a94442; padding: 20px; min-height: 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <div style="margin-bottom: 15px;">
+                    <img src="https://api.dicebear.com/7.x/identicon/svg?seed=Joker" alt="Joker" style="width: 60px; height: 60px;">
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="col-xs-12">
-                <div class="alert alert-info text-center">
-                    Aucun villain trouvé pour vos critères de recherche.
+                <div class="caption">
+                    <h4 style="font-weight: bold;">Le Joker</h4>
+                    <p><span class="label label-warning" style="font-size: 12px;">Force du noire</span></p>
+                    <button class="btn btn-danger btn-block">Signaler
+                    </button>
                 </div>
             </div>
-        <?php endif; ?>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px;">
+            <div class="thumbnail text-center" style="border: 2px solid #a94442; padding: 20px; min-height: 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <div style="margin-bottom: 15px;">
+                    <img src="https://api.dicebear.com/7.x/identicon/svg?seed=Herobrine" alt="Herobrine" style="width: 60px; height: 60px;">
+                </div>
+                <div class="caption">
+                    <h4 style="font-weight: bold;">Herobrine</h4>
+                    <p><span class="label label-warning" style="font-size: 12px;">Force de lumière</span></p>
+                    <button class="btn btn-danger btn-block">Signaler
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px;">
+            <div class="thumbnail text-center" style="border: 2px solid #a94442; padding: 20px; min-height: 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <div style="margin-bottom: 15px;">
+                    <img src="https://api.dicebear.com/7.x/identicon/svg?seed=Sandman" alt="Sandman" style="width: 60px; height: 60px;">
+                </div>
+                <div class="caption">
+                    <h4 style="font-weight: bold;">Sandman</h4>
+                    <p><span class="label label-warning" style="font-size: 12px;">Force du sable</span></p>
+                    <button class="btn btn-danger btn-block"> Signaler
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -41,7 +41,8 @@ final class Container
         return match ($class) {
             AdminController::class => new AdminController(
                 $request,
-                new UserRepository($this->pdo, $this->addressRepository)
+                new UserRepository($this->pdo, $this->addressRepository),
+                new Response()
             ),
 
             AuthController::class => new AuthController(
@@ -53,7 +54,11 @@ final class Container
 
             DashboardController::class => new DashboardController(
                 $request,
-                new UserRepository($this->pdo, $this->addressRepository)
+                new UserRepository($this->pdo, $this->addressRepository),
+                new AddressRepository($this->pdo),
+                new Response(),
+                new IncidentRepository($this->pdo),
+                new VillainRepository($this->pdo),
             ),
 
             ExceptionsController::class => new ExceptionsController(
@@ -64,6 +69,8 @@ final class Container
             HeroController::class => new HeroController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new HeroRepository($this->pdo),
+                new Response()
             ),
 
             IncidentController::class => new IncidentController(
@@ -80,6 +87,7 @@ final class Container
             MovieController::class => new MovieController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new HeroRepository($this->pdo),
             ),
 
             NewsletterController::class => new NewsletterController(
@@ -90,11 +98,17 @@ final class Container
             RegisterController::class => new RegisterController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new Response(),
+                new CityRepository($this->pdo),
+                new CountryRepository($this->pdo),
             ),
 
             UserController::class => new UserController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new Response(),
+                new CityRepository($this->pdo),
+                new AddressRepository($this->pdo),
             ),
 
             VillainController::class => new VillainController(

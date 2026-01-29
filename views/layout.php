@@ -6,20 +6,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="/public/assets/css/global.css" rel="stylesheet">
-    <title>Web4Heroes</title>
+    <title><?=$title?></title>
 </head>
+
 <body>
-
-<!-- TODO: Logic for header/footer-<=role?> -->
-
 <?php
 
-var_dump($_SESSION);
-?>
-<form action="/logout" method="POST">
-    <button type="submit">Déconnecter</button>
-</form>
-<?php
 if(isset($_SESSION['user']) && is_array($_SESSION['user'])) {
     $role = $_SESSION['user']['role'] ?? null;
     if ($role == 'admin') {
@@ -39,6 +31,9 @@ else include 'views/includes/header-default.php';
     include $viewFile;
     ?>
 </main>
+<?php
+
+?>
 
 <?php include "includes/footer-default.php"; ?>
 

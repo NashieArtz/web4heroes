@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Core\Request;
 use App\Core\Response;
+use App\Repository\CityRepository;
+use App\Repository\CountryRepository;
 use App\Repository\UserRepository;
 
 class RegisterController extends Controller
@@ -12,24 +14,36 @@ class RegisterController extends Controller
 
     private UserRepository $userRepository;
     private Response $response;
+    private CityRepository $cityRepository;
+    private CountryRepository $countryRepository;
 
-    public function __construct(Request $request, UserRepository $userRepository)
+    public function __construct(Request        $request, UserRepository $userRepository, Response $response,
+                                CityRepository $cityRepository, CountryRepository $countryRepository)
     {
         parent::__construct($request);
         $this->userRepository = $userRepository;
-        $this->response = new Response();
+        $this->response = $response;
+        $this->cityRepository = $cityRepository;
+        $this->countryRepository = $countryRepository;
 
     }
 
     public function showRegister(): Response
     {
+        $cities = $this->cityRepository->findAllNames();
+        $countries = $this->countryRepository->findAllNames();
         return $this->view('register',
-        ['title' => 'Inscription']);
+            [
+                'title' => 'Inscription',
+                'cities' => $cities,
+                'countries' => $countries,
+            ]);
     }
 
-    public function showRegisterConfirmation(): Response {
+    public function showRegisterConfirmation(): Response
+    {
         return $this->view('register-confirmation',
-        ['title' => 'Confirmation d\'inscription']);
+            ['title' => 'Confirmation d\'inscription']);
     }
 
 
@@ -60,8 +74,8 @@ class RegisterController extends Controller
             $data = [
                 'lastname' => htmlspecialchars(trim($_POST['lastname'] ?? ''), ENT_QUOTES),
                 'firstname' => htmlspecialchars(trim($_POST['firstname'] ?? ''), ENT_QUOTES),
-                'birthdate' => $_POST['birthdate'] ?? '' ,
-                'phone' => htmlspecialchars(trim($_POST['phone'] ?? ''),ENT_QUOTES),
+                'birthdate' => $_POST['birthdate'] ?? '',
+                'phone' => htmlspecialchars(trim($_POST['phone'] ?? ''), ENT_QUOTES),
                 'email' => htmlspecialchars(trim($_POST['email'] ?? ''), ENT_QUOTES),
                 'pwd' => htmlspecialchars($_POST['pwd'] ?? '', ENT_QUOTES),
                 'pwd_confirm' => htmlspecialchars($_POST['pwd_confirm'] ?? '', ENT_QUOTES),
@@ -104,7 +118,8 @@ class RegisterController extends Controller
             }
         }
 
-        return $this->view('register', ['errors' => $errors]);
+        return $this->view('register', [
+            'errors' => $errors,]);
         //</editor-fold>
     }
 }
