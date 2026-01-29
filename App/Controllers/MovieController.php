@@ -15,12 +15,13 @@ class MovieController extends Controller
     private HeroRepository $heroRepository;
     private Response $response;
 
-    public function __construct(Request $request, UserRepository $userRepository, HeroRepository $heroRepository)
+    public function __construct(Request $request, UserRepository $userRepository, HeroRepository $heroRepository,
+    Response $response)
     {
         parent::__construct($request);
         $this->userRepository = $userRepository;
         $this->heroRepository = $heroRepository;
-        $this->response = new Response();
+        $this->response = $response;
 
     }
 
@@ -37,8 +38,8 @@ class MovieController extends Controller
         $this->showMoviesHero($heroID);
     }
 
-    public function showMoviesHero(int $heroID): Response {
-        return $this->view('hero-movies', [
+    public function showMoviesHero(): Response {
+        return $this->view('hero/hero-movies', [
             'title' => 'Mes Films',
         ]);
     }

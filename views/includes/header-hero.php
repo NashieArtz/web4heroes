@@ -13,18 +13,14 @@
             <ul class="navbar-nav d-flex align-items-center mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Accueil</a>
+                    <a class="nav-link d-inline-block mb-0" href="/">Accueil</a>
                 </li>
 
                 <li class="nav-item">
-                    <form action="/hero-movies" method="GET">
-                        <button type="submit">Mes Films</button>
-                    </form>
+                    <a class="nav-link d-inline-block mb-0" href="/hero-movies">Mes films</a>
                 </li>
                 <li class="nav-item">
-                    <form action="/hero-reputation" method="GET">
-                        <button type="submit">Ma Réputation</button>
-                    </form>
+                    <a class="nav-link d-inline-block mb-0" href="/hero-reputation">Ma réputation</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

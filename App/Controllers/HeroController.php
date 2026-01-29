@@ -69,8 +69,14 @@ class HeroController extends Controller
     }
 
     public function showHeroProfile(): Response {
-        return $this->view('hero-profile', [
+        return $this->view('hero/hero-profile', [
             'title' => 'Profile Hero'
+        ]);
+    }
+
+    public function showHeroReputation(): Response {
+        return $this->view('hero/hero-reputation', [
+            'title' => 'Reputation Hero'
         ]);
     }
 }

@@ -17,7 +17,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="incident-create">
+                    <a class="nav-link" href="/incident-create">
                         Déclarer un incident
                     </a>
                 </li>

@@ -88,6 +88,7 @@ final class Container
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
                 new HeroRepository($this->pdo),
+                new Response(),
             ),
 
             NewsletterController::class => new NewsletterController(
