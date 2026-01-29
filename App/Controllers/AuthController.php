@@ -27,6 +27,9 @@ class AuthController extends Controller
     //<editor-fold desc="SHOW">
     public function showLogin(): Response
     {
+        if(isset($_SESSION['user'])){
+            return $this->response->redirect('/');
+        }
         return $this->view('login',[
             'title' => 'Connexion'
         ]);

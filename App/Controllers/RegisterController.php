@@ -30,6 +30,9 @@ class RegisterController extends Controller
 
     public function showRegister(): Response
     {
+        if(isset($_SESSION['user'])){
+            return $this->redirect('/');
+        }
         $cities = $this->cityRepository->findAllNames();
         $countries = $this->countryRepository->findAllNames();
         return $this->view('register',
