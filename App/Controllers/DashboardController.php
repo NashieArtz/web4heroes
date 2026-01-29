@@ -44,6 +44,9 @@ class DashboardController extends Controller
 
     public function showUserDashboard(): Response
     {
+        if (!isset($_SESSION['user'])) {
+            return $this->response->redirect('/');
+        }
         $userRole = $_SESSION['user']['role'];
         $userRole = $this->roleCheck($userRole);
         if ($userRole !== 'user') {
@@ -98,22 +101,33 @@ class DashboardController extends Controller
 
     public function showHeroDashboard(): Response
     {
+        if (!isset($_SESSION['user'])) {
+            return $this->response->redirect('/');
+        }
         $userRole = $_SESSION['user']['role'];
         $userRole = $this->roleCheck($userRole);
         if ($userRole !== 'hero') {
             return $this->response->redirect('/');
         }
-        return $this->view('dashboard/hero-dashboard');
+        return $this->view('dashboard/hero-dashboard', [
+            'title' => 'Tableau de bord Héro',
+        ]);
     }
 
     public function showAdminDashboard(): Response
     {
+
+        if (!isset($_SESSION['user'])) {
+            return $this->response->redirect('/');
+        }
         $userRole = $_SESSION['user']['role'];
         $userRole = $this->roleCheck($userRole);
         if ($userRole !== 'admin') {
             return $this->response->redirect('/');
         }
-        return $this->view('dashboard/admin-dashboard');
+        return $this->view('dashboard/admin-dashboard', [
+            'title' => 'Admin Dashboard',
+        ]);
     }
 
 }

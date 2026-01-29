@@ -223,4 +223,59 @@ final class UserRepository
             throw $e;
         }
     }
+
+    //TODO: CHECK
+
+    //<editor-fold desc="check">
+    public function getStatsByUser(int $userId): array
+    {
+        $sql = "SELECT
+                    COUNT(*) as reported,
+                    SUM(CASE WHEN status = 'resolved' THEN 1 ELSE 0 END) as resolved,
+                    SUM(CASE WHEN status = 'open' THEN 1 ELSE 0 END) as open
+                FROM incidents
+                WHERE users_id = :id";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $userId]);
+
+        // Assure que toutes les clés existent, même si vides (évite les warnings PHP)
+        $stats = $stmt->fetch(PDO::FETCH_ASSOC);
+        return [
+            'reported' => (int)($stats['reported'] ?? 0),
+            'resolved' => (int)($stats['resolved'] ?? 0),
+            'open'      => (int)($stats['open'] ?? 0)
+        ];
+    }
+
+    /**
+     * Récupère la liste des incidents récents d'un utilisateur
+     */
+    public function findRecentByUser(int $userId, int $limit = 10): array
+    {
+        $sql = "SELECT * FROM incidents
+                WHERE users_id = :id
+                ORDER BY date DESC
+                LIMIT :limit";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    //</editor-fold>
+
+
+    public function setResetToken(string $email, string $token, string $expiry): bool
+    {
+        $sql = "UPDATE users SET reset_token = :token, reset_token_expiry = :expiry WHERE email = :email";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':token'  => $token,
+            ':expiry' => $expiry,
+            ':email'  => $email
+        ]);
+    }
 }

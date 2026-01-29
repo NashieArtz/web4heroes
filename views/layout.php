@@ -8,9 +8,9 @@
     <link href="/public/assets/css/global.css" rel="stylesheet">
     <title><?=$title?></title>
 </head>
+
 <body>
 <?php
-
 
 if(isset($_SESSION['user']) && is_array($_SESSION['user'])) {
     $role = $_SESSION['user']['role'] ?? null;

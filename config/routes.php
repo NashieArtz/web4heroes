@@ -19,17 +19,17 @@ return function (Router $router) {
 
     //ADMINCONTROLLER
     $router->get('/admin-user-management', [AdminController::class, 'showUserManagement']);
-    $router->get('/admin-incidents-list', [AdminController::class, 'showIncidents']);
-    $router->get('/admin-movies-list', [AdminController::class, 'showMovies']);
-    $router->get('/admin-newsletters', [AdminController::class, 'showNewsletters']);
-    $router->get('/admin-users-list', [AdminController::class, 'showUsersList']);
+    $router->get('/admin-incidents-list', [AdminController::class, 'showAdminIncidents']);
+    $router->get('/admin-movies-list', [AdminController::class, 'showAdminMovies']);
+    $router->get('/admin-newsletters', [AdminController::class, 'showAdminNewsletters']);
+    $router->get('/admin-users-list', [AdminController::class, 'showAdminUsersList']);
 
     // AUTHCONTROLLER
     $router->get('/login', [AuthController::class, 'showLogin']);
     $router->post('/login', [AuthController::class, 'login']);
     $router->post('/logout', [AuthController::class, 'logout']);
 
-    $router->get('/forgotten-pwd', [AuthController::class, 'showForgotPassword']);
+    $router->get('/forgot-password', [AuthController::class, 'showForgotPassword']);
     $router->post('/forgot-password', [AuthController::class, 'forgotPassword']);
     $router->get('/reset-password/{token}', [AuthController::class, 'showResetPassword']);
     $router->post('/reset-password', [AuthController::class, 'resetPassword']);
@@ -74,6 +74,5 @@ return function (Router $router) {
 
     //VILLAINCONTROLLER
     $router->get('/villains-list', [VillainController::class, 'showVillainList']);
-
 
 };

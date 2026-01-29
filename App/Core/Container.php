@@ -69,6 +69,8 @@ final class Container
             HeroController::class => new HeroController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new HeroRepository($this->pdo),
+                new Response()
             ),
 
             IncidentController::class => new IncidentController(
@@ -85,6 +87,7 @@ final class Container
             MovieController::class => new MovieController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new HeroRepository($this->pdo),
             ),
 
             NewsletterController::class => new NewsletterController(
@@ -95,6 +98,9 @@ final class Container
             RegisterController::class => new RegisterController(
                 $request,
                 new UserRepository($this->pdo, $this->addressRepository),
+                new Response(),
+                new CityRepository($this->pdo),
+                new CountryRepository($this->pdo),
             ),
 
             UserController::class => new UserController(

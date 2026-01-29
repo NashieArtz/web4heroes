@@ -23,5 +23,33 @@ class AdminController extends Controller
 
     }
 
+    public function showAdminUsersList(): Response
+    {
+        return $this->view('admin/admin-users-list', [
+            'title' => 'Gestion des Utilisateurs',
+        ]);
+    }
+
+
+    public function showAdminIncidents(): Response
+    {
+        return $this->view('admin/admin-incidents-list', [
+            'title' => 'Gestion des Incidents',
+        ]);
+    }
+
+    public function showAdminMovies(): Response
+    {
+        return $this->view('admin/admin-movies-list', [
+            'title' => 'Gestion des Films',
+        ]);
+    }
+
+    public function showAdminNewsletters(): Response
+    {
+        return $this->view('admin/admin-newsletters', [
+            'title' => 'Administration Newsletter'
+        ]);
+    }
 
 }

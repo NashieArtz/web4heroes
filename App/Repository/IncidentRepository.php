@@ -14,18 +14,19 @@ final class IncidentRepository
         $this->pdo = $pdo;
     }
 
-    public function findByID(int $id): ?array
+    public function findAllWithDetails(): array
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `id` = :id');
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: null;
-    }
+        $query = "SELECT i.*,
+              u.firstname, u.lastname,
+              cit.name as city_name
+              FROM `incidents` as i
+              LEFT JOIN `users` as u ON i.users_id = u.id
+              LEFT JOIN `address` as a ON i.address_id = a.id
+              LEFT JOIN `cities` as cit ON a.city_id = cit.id
+              ORDER BY i.date DESC";
 
-    public function findByUserID(int $id): ?array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM `incidents` WHERE `users_id` = :id');
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: null;
+        $stmt = $this->pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

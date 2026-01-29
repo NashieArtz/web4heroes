@@ -43,8 +43,24 @@ class IncidentController extends Controller
 
     public function showIncidents(): Response
     {
+        $incidents = $this->incidentRepository->findAllWithDetails();
+
+        $typeTranslations = [
+            'Attack' => 'Attaque de vilain',
+            'Robbery' => 'Braquage / Vol',
+            'Disaster' => 'Catastrophe Naturelle',
+            'Kidnapping' => 'Enlèvement',
+            'Vandalism' => 'Vandalisme',
+            'HostageTaking' => 'Prise d\'otages',
+            'Invasion' => 'Invasion',
+            'Medical' => 'Urgence Médicale',
+            'Other' => 'Autre'
+        ];
+
         return $this->view('incident-list', [
             'title' => 'Liste Incidents',
+            'incidents' => $incidents,
+            'typeTranslations' => $typeTranslations
         ]);
     }
 
@@ -123,11 +139,14 @@ class IncidentController extends Controller
             }
 
             $villainID = null;
-            if ($_POST['incident-villain'] === "Vilain Inconnu") {
-                $villainID = $_POST['incident-villain'];
-            } elseif (isset($_POST['incident-villain-new'])) {
-                $villainAlias = htmlspecialchars(strtolower(trim($_POST['incident-villain-new'])), ENT_QUOTES);
-                $villainID = $this->villainRepository->createNewVillain($villainAlias);
+            $selectedVillain = $_POST['incident-villain'] ?? null;
+            $newVillainAlias = trim($_POST['incident-villain-new'] ?? '');
+            if (!empty($newVillainAlias)) {
+                $villainAlias = htmlspecialchars(strtolower($newVillainAlias), ENT_QUOTES);
+                $villainID = (int)$this->villainRepository->createNewVillain($villainAlias);
+            }
+            elseif ($selectedVillain !== 'no-villain' && !empty($selectedVillain)) {
+                $villainID = (int)$selectedVillain;
             }
 
             $addressId = $this->addressRepository->findIdByData($dataAddress);

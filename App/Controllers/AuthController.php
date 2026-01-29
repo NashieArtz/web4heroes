@@ -27,12 +27,16 @@ class AuthController extends Controller
     //<editor-fold desc="SHOW">
     public function showLogin(): Response
     {
-        return $this->view('login');
+        return $this->view('login',[
+            'title' => 'Connexion'
+        ]);
+
+
     }
 
     public function showForgotPassword(): Response
     {
-        return $this->view('forgotten-pwd');
+        return $this->view('forgot-password');
     }
 
     public function showResetPassword(): Response
@@ -82,7 +86,9 @@ class AuthController extends Controller
             }
         }
 
-        return $this->view('login', ['error' => $error]);
+        return $this->view('login', [
+            'title' => 'Connexion',
+            'error' => $error]);
     }
 
     //</editor-fold>
@@ -92,11 +98,19 @@ class AuthController extends Controller
     {
         $_SESSION = [];
 
-// Détruire la session
         session_destroy();
 
-// Redirection vers l'accueil
         header("Location: http://web4heroes.dvl.to/");
         exit();
     }
+
+
+    public function forgotPassword(): Response
+    {
+        $title = "Créa-code - Mot de passe oublié ?";
+        $desc = "Réinitialisez votre mot de passe en saisissant votre adresse email.";
+
+        return $this->view('forgot-password', compact('title', 'desc'));
+    }
+
 }
